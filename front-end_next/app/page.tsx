@@ -1,9 +1,9 @@
-import Header from './Components/Header/header';
+import Format from '@/layout/format';
+
 
 export default function Home() {
   return (
-    <main>
-     <Header></Header>
-    </main>
+    <Format>
+    </Format>
   )
-}
+};
