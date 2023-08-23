@@ -1,13 +1,36 @@
+"use client"
 import Image from 'next/image';
 import Link from 'next/link';
 import Author from '../Child/author';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 const section1 = () => {
+
+    const bg = {
+        background: "url('images/banner.png')no-repeat",
+        backgroundPosition: "right"
+    }
+
     return (
         <section className='py-16'>
             <div className='container mx-auto md:px20'>
                 <h1 className='font-bold text-4xl pb-12 text-center'>Star Blog</h1>
-                {Slide()}
+
+                <Swiper
+                    spaceBetween={50}
+                    slidesPerView={3}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                >
+                    <SwiperSlide>Slide 1</SwiperSlide>
+                    <SwiperSlide>Slide 2</SwiperSlide>
+                    <SwiperSlide>Slide 3</SwiperSlide>
+                    <SwiperSlide>Slide 4</SwiperSlide>
+                    ...
+                </Swiper>
+
+                { Slide() }
             </div>
         </section>
     )
@@ -35,7 +58,7 @@ const Slide = () => {
                     </Link>
                 </div>
                 <p className='text-gray-500 py-3'>
-                even the almighty pointing unchecked over the blind texts is an almost unorthographic life one day however a small line of blind text by the name of Lorem ipsum decided to depart for the distant world of grammar
+                    even the almighty pointing unchecked over the blind texts is an almost unorthographic life one day however a small line of blind text by the name of Lorem ipsum decided to depart for the distant world of grammar
                 </p>
                 <Author>
 
