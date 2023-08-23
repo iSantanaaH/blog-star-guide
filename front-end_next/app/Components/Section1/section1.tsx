@@ -26,7 +26,7 @@ const Slide = () => {
             <div className='info flex justify-center flex-col'>
                 <div className='cat'>
                     <Link href={'/'}>
-                        <span className='text-orange-600 hover:text-orange-800'>Reflexões Espirituais</span>
+                        <span className='text-orange-600 hover:text-orange-800'>Spiritual Reflections</span>
                     </Link>
                 </div>
                 <div className='title'>
