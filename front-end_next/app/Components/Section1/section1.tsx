@@ -14,7 +14,7 @@ const section1 = () => {
     }
 
     return (
-        <section className='py-16'>
+        <section className='py-16' style={bg}>
             <div className='container mx-auto md:px20'>
                 <h1 className='font-bold text-4xl pb-12 text-center'>Star Blog</h1>
 
@@ -29,7 +29,6 @@ const section1 = () => {
                     <SwiperSlide>{ Slide() }</SwiperSlide>
                     <SwiperSlide>{ Slide() }</SwiperSlide>
                     <SwiperSlide>{ Slide() }</SwiperSlide>
-                    ...
                 </Swiper>
 
 
@@ -42,7 +41,7 @@ export default section1;
 
 const Slide = () => {
     return (
-        <div className='grid md:grid-cols-2'>
+        <div className='grid md:grid-cols-2 sm:gap-10'>
             <div className='image'>
                 <Link href={'/'}>
                     <Image src={'/images/img1.jpg'} width={600} height={600} alt='Picture Blog' />
