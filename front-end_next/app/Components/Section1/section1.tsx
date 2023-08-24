@@ -24,8 +24,9 @@ const section1 = () => {
                 <Swiper
                     spaceBetween={50}
                     slidesPerView={1}
+                    loop={true}
                     autoplay={{
-                        delay:2000
+                        delay:6000
                     }}
                 >
                     <SwiperSlide>{ Slide() }</SwiperSlide>
