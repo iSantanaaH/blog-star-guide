@@ -22,12 +22,15 @@ const section1 = () => {
                 <h1 className='font-bold text-4xl pb-12 text-center'>Star Blog</h1>
 
                 <Swiper
+                    speed={700}
                     spaceBetween={50}
                     slidesPerView={1}
                     loop={true}
                     autoplay={{
-                        delay:6000
+                        delay: 6000,
+                        disableOnInteraction: false,
                     }}
+                    
                 >
                     <SwiperSlide>{ Slide() }</SwiperSlide>
                     <SwiperSlide>{ Slide() }</SwiperSlide>
