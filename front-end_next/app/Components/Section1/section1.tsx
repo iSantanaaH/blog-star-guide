@@ -3,10 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Author from '../Child/author';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore from 'swiper';
 import 'swiper/css';
-import { log } from 'console';
+import { Autoplay } from 'swiper/modules';
 
 const section1 = () => {
+
+    SwiperCore.use([Autoplay])
 
     const bg = {
         background: "url('images/banner.png')no-repeat",
@@ -21,8 +24,9 @@ const section1 = () => {
                 <Swiper
                     spaceBetween={50}
                     slidesPerView={1}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+                    autoplay={{
+                        delay:2000
+                    }}
                 >
                     <SwiperSlide>{ Slide() }</SwiperSlide>
                     <SwiperSlide>{ Slide() }</SwiperSlide>
