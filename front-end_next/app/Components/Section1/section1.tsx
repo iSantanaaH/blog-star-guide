@@ -70,7 +70,7 @@ const Slide = () => {
                     even the almighty pointing unchecked over the blind texts is an almost unorthographic life one day however a small line of blind text by the name of Lorem ipsum decided to depart for the distant world of grammar
                 </p>
                 <Author>
-
+                    
                 </Author>
             </div>
         </div>
