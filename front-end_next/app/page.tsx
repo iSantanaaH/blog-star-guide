@@ -3,6 +3,7 @@ import Section1 from './Components/Section1/sectionIntroBlogSlide';
 import SectionPosts from './Components/Section2/sectionPosts';
 import MostPopular from './Components/MostPopular/sectionMostPopular';
 import OtherPosts from './Components/SectionOthersPosts/othersPosts';
+import ComponentFooter from './Components/Footer/footer';
 
 
 export default function Home() {
