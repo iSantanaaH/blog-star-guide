@@ -26,7 +26,7 @@ const Posts = () => {
                 </div>
                 <div className="title">
                     <Link href={"/"}>
-                        <p className="text-3xl md:text-4xl font-bold text-gray-800 hover:text-gray-600">
+                        <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
                             You can be better every day if you let it.
                         </p>
                     </Link>
@@ -48,10 +48,19 @@ const OtherPosts = () => {
                     <h1 className="font-bold text-4xl py-12 text-center">Others Posts</h1>
                     <div className="flex flex-col gap-6">
                         {Posts()}
+                        {Posts()}
+                        {Posts()}
+                        {Posts()}
                     </div>
                 </div>
                 <div className="item">
-
+                <h1 className="font-bold text-4xl py-12 text-center">Travel</h1>
+                    <div className="flex flex-col gap-6">
+                        {Posts()}
+                        {Posts()}
+                        {Posts()}
+                        {Posts()}
+                    </div>
                 </div>
             </div>
         </section>

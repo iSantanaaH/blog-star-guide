@@ -16,6 +16,8 @@ const SectionPosts = () => {
         {latestPost()}
         {latestPost()}
         {latestPost()}
+        {latestPost()}
+        {latestPost()}
       </div>
     </section>
   );
