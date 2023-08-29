@@ -9,14 +9,14 @@ type AuthorProps = {
 const Author = ({ children }: AuthorProps) => {
   return (
     <div className="author flex py-5">
-      <Image src={'/images/author/author1.jpg'} width={80} height={60} alt="" className="rounded-full" />
+      <Image src={'/images/author/author2.jpg'} width={50} height={60} alt="" className="rounded-full" />
       <div className="flex flex-col justify-center px-4">
         <Link href={'/'}>
           <span className="text-md font-bold text-gray-800 hover:text-gray-600 ">
-            Flying High
+            Autor
           </span>
         </Link>
-        <span className="text-sm text-gray-500">Writing</span>
+        <span className="text-sm text-gray-500">Escrevendo...</span>
         {children}
       </div>
     </div>

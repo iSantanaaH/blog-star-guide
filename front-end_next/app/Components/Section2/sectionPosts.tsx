@@ -6,7 +6,7 @@ import Author from "../Child/author";
 const SectionPosts = () => {
   return (
     <section className="container mx-auto md:px-20 py-10">
-      <h1 className="font-bold text-4xl py-12 text-center">Latest Post</h1>
+      <h1 className="font-bold text-4xl py-12 text-center">Mais recente</h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
         {latestPost()}
@@ -31,8 +31,8 @@ const latestPost = () => {
       <div className="images">
         <Link href={"/"}>
           <Image
-            src={"/images/img1.jpg"}
-            width={500}
+            src={"/images/img4.png"}
+            width={300}
             height={350}
             alt="Picture Blog"
             className="rounded-sm"
@@ -43,23 +43,21 @@ const latestPost = () => {
       <div className="cat">
         <Link href={"/"}>
           <span className="text-orange-600 hover:text-orange-800">
-            Spiritual Reflections
+            Criado em:
           </span>
         </Link>
         <Link href={'/'}>
-          <span className='text-gray-800 hover:text-gray-600'> - August, 28 2023 </span>
+          <span className='text-gray-800 hover:text-gray-600'> Agosto, 28 2023</span>
         </Link>
       </div>
       <div className="title">
         <Link href={"/"}>
           <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
-            You can be better every day if you let it.
+            Navegando Pelos Caminhos da Inspiração e Sabedoria
           </p>
         </Link>
         <p className="text-gray-500 py-3">
-          even the almighty pointing unchecked over the blind texts is an almost
-          unorthographic life one day however a small line of blind text by the
-          name of Lorem ipsum decided to depart for the distant world of grammar
+          Aqui, mergulhamos nos mistérios celestiais da inspiração e da sabedoria, trazendo-lhe histórias cativantes e reflexões profundas. Acompanhe-nos enquanto navegamos pelos intricados caminhos da criatividade, autoconhecimento e crescimento espiritual.
         </p>
         <Author>
 

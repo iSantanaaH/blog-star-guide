@@ -7,10 +7,11 @@ export const Newslatter = () => {
 
             <div className="py-4">
                 <input type="text" className="shadow border rounded w-9/12 px-3
+                p-2
                 text-gray-700 focus:outline-none focus:shadow-blue-500" placeholder="Digite seu Email"/>
             </div>
             
-            <button className="bg-orange-400 px-20 py-3 rounded-full text-gray-50 text-xl">Enviar</button>
+            <button className="bg-blue-400 px-20 py-3 rounded-full text-gray-50 text-xl">Enviar</button>
         </div>
     </section>
   )

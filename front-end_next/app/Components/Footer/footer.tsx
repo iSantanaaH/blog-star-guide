@@ -21,10 +21,7 @@ const ComponentFooter = () => {
                         </Link>
                     </div>
 
-                    <p className="py-5 text-gray-400">&copy; Create by Micael Santana</p>
-                    <p className="text-gray-400 text-center">
-                        Terms & Condition
-                    </p>
+                    <p className="py-5 text-gray-400">&copy; Criado por Micael Santana</p>
                 </div>
             </div>
         </section>
