@@ -2,7 +2,7 @@ import Format from '@/layout/format';
 import Section1 from './Components/Section1/sectionIntroBlogSlide';
 import SectionPosts from './Components/Section2/sectionPosts';
 import MostPopular from './Components/MostPopular/sectionMostPopular';
-import OtherPosts from './Components/SectionOthersPosts/otherPosts';
+import OtherPosts from './Components/SectionOthersPosts/othersPosts';
 
 
 export default function Home() {
