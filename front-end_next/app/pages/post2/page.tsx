@@ -1,4 +1,5 @@
 import Author from "@/app/Components/Child/author";
+import Related from "@/app/Components/Child/related";
 import Format from "@/layout/format";
 import Image from "next/image";
 
@@ -35,6 +36,8 @@ const Post2 = () => {
             <p>Lorem ipsum dolor sit amet. Aut eveniet doloremque et blanditiis nisi sit ducimus aliquam! Aut itaque asperiores sit exercitationem voluptatem sit nostrum placeat id impedit corporis et quod temporibus est magnam natus.</p>
             </div>
         </div>
+
+        <Related></Related>
       </section>
     </Format>
   );
