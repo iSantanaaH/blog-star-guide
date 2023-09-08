@@ -57,7 +57,7 @@ const latestPost = () => {
           name of Lorem ipsum decided to depart for the distant world of grammar
         </p>
         <Author>
-
+          
         </Author>
       </div>
     </div>
