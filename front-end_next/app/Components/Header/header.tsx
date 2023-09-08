@@ -10,7 +10,7 @@ const header = () => {
           <input type="text" className="input-text" placeholder="Search..." />
         </div>
         <div className="shrink w-80 sm:order-2">
-          <a className="font-bold uppercase text-3xl">Design</a>
+          <a className="font-bold uppercase text-3xl">A estrela guia</a>
         </div>
         <div className="w96 order-3 flex justify-center">
           <div className="flex gap-6 sm:mr-4">

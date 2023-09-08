@@ -1,7 +1,9 @@
 import Format from '@/layout/format';
-import Section1 from './Components/Section1/section1';
+import Section1 from './Components/Section1/sectionIntroBlogSlide';
 import SectionPosts from './Components/Section2/sectionPosts';
-import MostPopular from './Components/MostPopular/mostPopular';
+import MostPopular from './Components/MostPopular/sectionMostPopular';
+import OtherPosts from './Components/SectionOthersPosts/othersPosts';
+import ComponentFooter from './Components/Footer/footer';
 
 
 export default function Home() {
@@ -10,6 +12,7 @@ export default function Home() {
       <Section1></Section1>
       <SectionPosts></SectionPosts>
       <MostPopular></MostPopular>
+      <OtherPosts></OtherPosts>
     </Format>
   )
 };

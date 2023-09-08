@@ -1,41 +1,37 @@
-import React from "react";
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import Link from "next/link";
 import Image from "next/image";
 import Author from "../Child/author";
 
-const SectionPosts = () => {
+const MostPopular = () => {
   return (
-    <section className="container mx-auto md:px-20 py-10">
-      <h1 className="font-bold text-4xl py-12 text-center">Mais recente</h1>
+    <section className="container mx-auto md:px-20 py-16">
+      <h1 className="font-bold text-4xl py-12 text-center">Mais popular</h1>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-      </div>
+      <Swiper spaceBetween={50} slidesPerView={2}>
+        <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
+        <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
+        <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
+        <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
+      </Swiper>
     </section>
   );
 };
 
-export default SectionPosts;
+export default MostPopular;
 
-const latestPost = () => {
+const SlideListMostPopular = () => {
   return (
     <div className="item">
       <div className="images">
         <Link href={"/"}>
           <Image
-            src={"/images/img4.png"}
-            width={300}
-            height={350}
+            src={"/images/img3.png"}
+            width={600}
+            height={400}
             alt="Picture Blog"
-            className="rounded-sm"
           />
         </Link>
       </div>
@@ -47,12 +43,12 @@ const latestPost = () => {
           </span>
         </Link>
         <Link href={'/'}>
-          <span className='text-gray-800 hover:text-gray-600'> Agosto, 28 2023</span>
+          <span className='text-gray-800 hover:text-gray-600'> Agosto, 28 2023 </span>
         </Link>
       </div>
       <div className="title">
         <Link href={"/"}>
-          <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
+          <p className="text-3xl md:text-4xl font-bold text-gray-800 hover:text-gray-600">
             Navegando Pelos Caminhos da Inspiração e Sabedoria
           </p>
         </Link>
@@ -60,7 +56,7 @@ const latestPost = () => {
           Aqui, mergulhamos nos mistérios celestiais da inspiração e da sabedoria, trazendo-lhe histórias cativantes e reflexões profundas. Acompanhe-nos enquanto navegamos pelos intricados caminhos da criatividade, autoconhecimento e crescimento espiritual.
         </p>
         <Author>
-          
+
         </Author>
       </div>
     </div>
