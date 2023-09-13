@@ -1,26 +1,7 @@
 'use client'
 import Format from "@/layout/format";
-import tinymce from "tinymce";
-
-import { useEffect } from "react";
-import 'tinymce/icons/default';
-import 'tinymce/themes/silver';
-import 'tinymce/plugins/link';
 
 const CreatePost = () => {
-  useEffect(() => {
-    tinymce.init({
-      selector: 'textarea#default',
-      menubar: 'file edit view',
-      plugins: 'advlist link image lists',
-      toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent'
-    });
-
-    // return (
-    //   tinymce.remove('textarea#default')
-    // );
-  }, []);
-
   return (
     <Format>
       <section className="container py-16 mx-auto md:px-2 md:w-10/12">
@@ -49,7 +30,7 @@ const CreatePost = () => {
             <label htmlFor="descricao" className="text-lg font-semibold">
               Descrição do post
             </label>
-            <textarea className="mt-2" id="default" value={'Hello World!'}>asdad</textarea>
+            <textarea className="mt-2" id="default" value={'Hello World!'}></textarea>
           </div>
           <div>
             <label htmlFor="imagem" className="text-lg font-semibold">
