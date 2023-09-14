@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Format from "@/layout/format";
 
 const CreatePost = () => {
@@ -11,29 +11,39 @@ const CreatePost = () => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-3 grid-rows-3 gap-4">
-          <div>
-            <label
-              htmlFor="titulo"
-              className="text-lg font-semibold row-span-1"
-            >
+        <div className="flex justify-center">
+          <div className="pb-8 flex justify-between items-center">
+            <label htmlFor="titulo" className="text-lg font-semibold mx-5">
               Titulo do post
             </label>
             <input
               type="text"
               id="titulo"
-              className="input-text mt-2 row-span-2"
+              className="input-post mt-2 row-span-2"
               placeholder="Titulo do post"
             />
           </div>
-          <div>
-            <label htmlFor="descricao" className="text-lg font-semibold">
+        </div>
+
+        <div className="container flex justify-center">
+          <div className="w-2/4">
+            <label
+              htmlFor="descricao"
+              className="text-lg font-semibold flex pb-4"
+            >
               Descrição do post
             </label>
-            <textarea className="mt-2" id="default" value={'Hello World!'}></textarea>
+            <textarea
+              className="mt-2 w-full"
+              id="default"
+              value={""}
+            ></textarea>
           </div>
-          <div>
-            <label htmlFor="imagem" className="text-lg font-semibold">
+        </div>
+
+        <div className="flex justify-center py-10">
+          <div className="flex items-center flex-col">
+            <label htmlFor="imagem" className="text-lg pb-3">
               Importar imagem
             </label>
             <input type="file" id="imagem" className="mt-2" />
