@@ -1,11 +1,12 @@
 import React from "react";
 import { ImFacebook, ImYoutube, ImTwitter } from "react-icons/im";
+import { BiUserCircle } from "react-icons/bi";
 import Link from "next/link";
 
 const header = () => {
   return (
-    <header className="bg-white fixed z-10 w-full">
-      <div className="xl:container xl:mx-auto flex flex-col items-center sm:flex-row sm:justify-between text-center py-3">
+    <header className="bg-slate-100 z-10 w-full">
+      <div className="xl:container xl:mx-auto flex flex-col items-center sm:flex-row sm:justify-between text-center">
         <div className="md:flex-none w-96 order-2 sm:order-1 flex justify-center py-4 sm:py-0">
           <input type="text" className="input-text" placeholder="Search..." />
         </div>
@@ -22,6 +23,10 @@ const header = () => {
             </Link>
             <Link href={"/"}>
               <ImYoutube color="#888888" />
+            </Link>
+            <Link href={"/"}>
+              {/* <BiUserCircle color="#888888" /> */}
+              <BiUserCircle color="#888888" />
             </Link>
           </div>
         </div>

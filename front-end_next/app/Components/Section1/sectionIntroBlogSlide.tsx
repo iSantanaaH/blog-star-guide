@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
+import GetUsers from '@/api/user';
 
 const section1 = () => {
 
@@ -18,6 +19,7 @@ const section1 = () => {
 
     return (
         <section className='py-16 sm:bg-none'>
+            <GetUsers />
             <div className='container mx-auto md:px20'>
                 <h1 className='font-bold text-4xl py-10 text-center'>Reflexão do dia</h1>
 
