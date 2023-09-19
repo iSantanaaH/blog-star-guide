@@ -1,6 +1,6 @@
 import React from "react";
 import { ImFacebook, ImYoutube, ImTwitter } from "react-icons/im";
-import { BiUserCircle } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 
 const header = () => {
@@ -26,7 +26,7 @@ const header = () => {
             </Link>
             <Link href={"/"}>
               {/* <BiUserCircle color="#888888" /> */}
-              <BiUserCircle color="#888888" />
+              <FaUserCircle color="#888888" />
             </Link>
           </div>
         </div>
