@@ -7,7 +7,9 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      'sml': '480px'
+    },
   },
   plugins: [],
 }
