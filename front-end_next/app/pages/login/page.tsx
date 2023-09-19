@@ -21,7 +21,7 @@ function FormLoginUser() {
             <Form.Control type="email" placeholder="email" />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3 sm:px-8" controlId="formBasicPassword">
             <Form.Label>Senha</Form.Label>
             <Form.Control type="password" placeholder="senha" />
           </Form.Group>
