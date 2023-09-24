@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, SyntheticEvent, useRef } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 function FormLoginUser() {
   const [messageSuccessCreateUser, setMessageSuccessCreateUser] =
@@ -14,7 +14,7 @@ function FormLoginUser() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const notifySuccesCreateUser = () => toast('Sucesso ao criar usuário!');
+  const notifySuccesCreateUser = () => toast("Sucesso ao criar usuário!");
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -130,7 +130,12 @@ function FormLoginUser() {
           </div>
 
           <div className="flex justify-center">
-            <Button onClick={notifySuccesCreateUser} className="px-5" variant="primary" type="submit">
+            <Button
+              onClick={notifySuccesCreateUser}
+              className="px-5"
+              variant="primary"
+              type="submit"
+            >
               Criar Conta
             </Button>
           </div>
