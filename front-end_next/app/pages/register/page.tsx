@@ -5,12 +5,16 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, SyntheticEvent, useRef } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function FormLoginUser() {
   const [messageSuccessCreateUser, setMessageSuccessCreateUser] =
     useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement | null>(null);
+
+  const notifySuccesCreateUser = () => toast('Sucesso ao criar usuário!');
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -38,7 +42,9 @@ function FormLoginUser() {
         setMessageSuccessCreateUser("Usuário cadastrado com sucesso!");
         formRef.current?.reset();
 
-        window.location.href = 'http://localhost:3000/pages/login'
+        setTimeout(() => {
+          window.location.href = "http://localhost:3000/pages/login";
+        }, 3000);
       } else {
         setMessageSuccessCreateUser(
           `Erro ao cadastrar usuário: ${response.data.mensagem}`
@@ -55,9 +61,13 @@ function FormLoginUser() {
   return (
     <Format>
       <section className="container flex flex-col justify-center items-center">
+        <div className="containerNotify">
+          <ToastContainer />
+        </div>
         <Form
           method="POST"
           onSubmit={handleSubmit}
+          ref={formRef}
           className="grid mt-32 py-5 w-2/4 bg-slate-200 rounded-2xl"
         >
           <div className="">
@@ -120,7 +130,7 @@ function FormLoginUser() {
           </div>
 
           <div className="flex justify-center">
-            <Button className="px-5" variant="primary" type="submit">
+            <Button onClick={notifySuccesCreateUser} className="px-5" variant="primary" type="submit">
               Criar Conta
             </Button>
           </div>
