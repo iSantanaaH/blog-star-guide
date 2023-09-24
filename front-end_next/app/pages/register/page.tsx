@@ -3,17 +3,61 @@ import Format from "@/layout/format";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import React, { useState, SyntheticEvent, useRef } from "react";
+import axios from "axios";
 
 function FormLoginUser() {
-  const [messageSucessCreateUser, setMessageSucessCreateUser] = useState("");
+  const [messageSuccessCreateUser, setMessageSuccessCreateUser] =
+    useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const handleSubmit = async (event: SyntheticEvent) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData(event.currentTarget as HTMLFormElement);
+
+      const formDataObject: Record<string, any> = {};
+      formData.forEach((value, key) => {
+        formDataObject[key] = value;
+      });
+
+      const response = await axios.post(
+        "http://localhost:3333/register",
+        formDataObject,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setMessageSuccessCreateUser("Usuário cadastrado com sucesso!");
+        formRef.current?.reset();
+
+        window.location.href = 'http://localhost:3000/pages/login'
+      } else {
+        setMessageSuccessCreateUser(
+          `Erro ao cadastrar usuário: ${response.data.mensagem}`
+        );
+      }
+    } catch (error: any) {
+      console.error("Erro ao registrar usuário:", error.message);
+      setMessageSuccessCreateUser("Erro ao cadastrar usuário");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Format>
       <section className="container flex flex-col justify-center items-center">
         <Form
-          action="http://localhost:3333/register"
           method="POST"
+          onSubmit={handleSubmit}
           className="grid mt-32 py-5 w-2/4 bg-slate-200 rounded-2xl"
         >
           <div className="">
@@ -71,11 +115,7 @@ function FormLoginUser() {
             </Form.Group>
             <Form.Group className="mb-3 sm:px-8" controlId="controlBirthday">
               <Form.Label>Data de nascimento</Form.Label>
-              <Form.Control
-                type="date"
-                name="birthday"
-                required
-              />
+              <Form.Control type="date" name="birthday" required />
             </Form.Group>
           </div>
 
