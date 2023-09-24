@@ -25,7 +25,6 @@ const header = () => {
               <ImYoutube color="#888888" />
             </Link>
             <Link href={"/"}>
-              {/* <BiUserCircle color="#888888" /> */}
               <FaUserCircle color="#888888" />
             </Link>
           </div>
