@@ -62,7 +62,7 @@ app.post("/register", async (req, res) => {
     if (checkUserEmailResult.rows.length > 0) {
       return res
         .status(400)
-        .json({ mensagem: "Este email já está cadastrado." });
+        .json({ error: "Este email já está cadastrado." });
     }
 
     const insertUserQuery = `
@@ -76,7 +76,7 @@ app.post("/register", async (req, res) => {
     res.status(200).json({ mensagem: "Usuario cadastrado com sucesso!" });
   } catch (error) {
     console.error("Erro ao registrar usuário:", error.message);
-    res.status(400).json({ mensagem: "Erro ao cadastrar usuário" });
+    res.status(400).json({ error: "Erro ao cadastrar usuário" });
   }
 });
 
