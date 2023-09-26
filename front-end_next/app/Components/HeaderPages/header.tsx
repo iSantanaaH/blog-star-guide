@@ -17,13 +17,13 @@ const header = () => {
         </div>
         <div className="w96 order-3 flex justify-center">
           <div className="flex gap-6 sm:mr-4">
-            {/* <Link href={"http://localhost:3000/"}>
+            {/* <Link href={"/"}>
               <ImFacebook color="#888888" />
             </Link>
-            <Link href={"http://localhost:3000/"}>
+            <Link href={"/"}>
               <ImTwitter color="#888888" />
             </Link>
-            <Link href={"http://localhost:3000/"}>
+            <Link href={"/"}>
               <ImYoutube color="#888888" />
             </Link> */}
             <Link href={"/"}>
