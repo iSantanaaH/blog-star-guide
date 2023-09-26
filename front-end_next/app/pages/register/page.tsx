@@ -1,5 +1,6 @@
 "use client";
 import Format from "@/layout/format";
+import Header from "@/app/Components/HeaderPages/header";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,12 +10,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function FormLoginUser() {
-  const [messageSuccessCreateUser, setMessageSuccessCreateUser] =
-    useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const notifySuccesCreateUser = () => toast("Sucesso ao criar usuário!");
+  const notifyErrorCreateUser = (errorMessage: string) => {
+    toast.error(`Erro ao cadastrar usuário: ${errorMessage}`);
+  };
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -39,20 +41,23 @@ function FormLoginUser() {
       );
 
       if (response.status === 200) {
-        setMessageSuccessCreateUser("Usuário cadastrado com sucesso!");
         formRef.current?.reset();
+        notifySuccesCreateUser();
 
         setTimeout(() => {
           window.location.href = "http://localhost:3000/pages/login";
         }, 3000);
+
       } else {
-        setMessageSuccessCreateUser(
-          `Erro ao cadastrar usuário: ${response.data.mensagem}`
-        );
+        if (response.data.mensagem.includes("Este email já está cadastrado.")) {
+          notifyErrorCreateUser("Este email já está cadastrado.");
+        } else {
+          notifyErrorCreateUser(response.data.mensagem);
+        }
       }
     } catch (error: any) {
       console.error("Erro ao registrar usuário:", error.message);
-      setMessageSuccessCreateUser("Erro ao cadastrar usuário");
+      notifyErrorCreateUser("Erro ao cadastrar usuário");
     } finally {
       setIsLoading(false);
     }
@@ -60,6 +65,7 @@ function FormLoginUser() {
 
   return (
     <Format>
+      <Header />
       <section className="container flex flex-col justify-center items-center">
         <div className="containerNotify">
           <ToastContainer />
@@ -131,7 +137,6 @@ function FormLoginUser() {
 
           <div className="flex justify-center">
             <Button
-              onClick={notifySuccesCreateUser}
               className="px-5"
               variant="primary"
               type="submit"
