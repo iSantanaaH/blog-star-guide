@@ -18,11 +18,22 @@ const pool = new Pool({
   max: 1,
 });
 
-app.post("/register", async (req, res) => {
-  try {
-    let { name, surname, email, phone, password, birthday } = req.body;
+const checkTableUsersQuery = `
+  SELECT EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_name = 'users'
+  )
+`;
 
-    const createTableUserQuery = `
+(async () => {
+  const client = await pool.connect();
+  try {
+    const result = await client.query(checkTableUsersQuery);
+    const tableExists = result.rows[0].exists;
+
+    if (!tableExists) {
+      const createTableUserQuery = `
       CREATE TABLE IF NOT EXISTS "users" (
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
@@ -34,12 +45,29 @@ app.post("/register", async (req, res) => {
         user_permission_id INT
       )
     `;
+      await client.query(createTableUserQuery);
+    }
+  } finally {
+    client.release();
+  }
+})();
+
+app.post("/register", async (req, res) => {
+  try {
+    let { name, surname, email, phone, password, birthday } = req.body;
+
+    const checkUserEmailQuery = "SELECT * FROM users WHERE email = $1";
+    const checkUserEmailResult = await pool.query(checkUserEmailQuery, [email]);
+
+    if (checkUserEmailResult.rows.length > 0) {
+      return res
+        .status(400)
+        .json({ mensagem: "Este email já está cadastrado." });
+    }
 
     const insertUserQuery = `
     INSERT INTO users (name, surname, email, phone, password, birthday) VALUES ($1, $2, $3, $4, $5, $6)
     `;
-
-    await pool.query(createTableUserQuery);
 
     const values = [name, surname, email, phone, password, birthday];
 
