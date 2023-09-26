@@ -15,7 +15,7 @@ function FormLoginUser() {
 
   const notifySuccesCreateUser = () => toast("Sucesso ao criar usuário!");
   const notifyErrorCreateUser = (errorMessage: string) => {
-    toast.error(`Erro ao cadastrar usuário: ${errorMessage}`);
+    toast.error(`Error: ${errorMessage}`);
   };
 
   const handleSubmit = async (event: SyntheticEvent) => {
@@ -49,15 +49,15 @@ function FormLoginUser() {
         }, 3000);
 
       } else {
-        if (response.data.mensagem.includes("Este email já está cadastrado.")) {
+        if (response.data.error === "Este email já está cadastrado.") {
           notifyErrorCreateUser("Este email já está cadastrado.");
         } else {
-          notifyErrorCreateUser(response.data.mensagem);
+          notifyErrorCreateUser(response.data.error);
         }
       }
     } catch (error: any) {
       console.error("Erro ao registrar usuário:", error.message);
-      notifyErrorCreateUser("Erro ao cadastrar usuário");
+      notifyErrorCreateUser(error.message);
     } finally {
       setIsLoading(false);
     }
