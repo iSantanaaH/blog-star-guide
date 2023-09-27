@@ -9,7 +9,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function FormLoginUser() {
+function FormUserRegisterAccount() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -18,7 +18,7 @@ function FormLoginUser() {
     toast.error(`Error: ${errorMessage}`);
   };
 
-  const handleSubmit = async (event: SyntheticEvent) => {
+  async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
 
@@ -150,4 +150,4 @@ function FormLoginUser() {
   );
 }
 
-export default FormLoginUser;
+export default FormUserRegisterAccount;
