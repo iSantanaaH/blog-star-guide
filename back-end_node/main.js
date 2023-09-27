@@ -60,9 +60,7 @@ app.post("/register", async (req, res) => {
     const checkUserEmailResult = await pool.query(checkUserEmailQuery, [email]);
 
     if (checkUserEmailResult.rows.length > 0) {
-      return res
-        .status(400)
-        .json({ error: "Este email já está cadastrado." });
+      return res.status(400).json({ error: "Este email já está cadastrado." });
     }
 
     const insertUserQuery = `
@@ -77,6 +75,19 @@ app.post("/register", async (req, res) => {
   } catch (error) {
     console.error("Erro ao registrar usuário:", error.message);
     res.status(400).json({ error: "Erro ao cadastrar usuário" });
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    let { email, password } = req.body;
+
+    const values = {email: email, password: password};
+
+    res.status(200).json(values);
+    console.log(values);
+  } catch (error) {
+    console.error("Falha ao receber os dados", error.message);
   }
 });
 
