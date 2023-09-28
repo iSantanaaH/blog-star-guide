@@ -1,13 +1,15 @@
 "use client";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Format from "@/layout/formatPages";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { SyntheticEvent, useRef } from "react";
+import { SyntheticEvent, useContext, useRef } from "react";
 import axios from "axios";
+import { AuthContext } from "@/app/contexts/AuthContext";
 
 function FormLoginUser() {
   const refFormLogin = useRef<HTMLFormElement | null>(null);
+  const { signIn, testeProvider } = useContext(AuthContext);
 
   async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -20,6 +22,13 @@ function FormLoginUser() {
         formDataObject[key] = value;
       });
 
+      // await signIn({
+      //   email: formDataObject.email,
+      //   password: formDataObject.password,
+      // });
+
+      console.log(formDataObject)
+
       const response = await axios.post(
         "http://localhost:3333/login",
         formDataObject,
@@ -31,16 +40,15 @@ function FormLoginUser() {
       );
 
       if (response.status === 200) {
-        console.log(response.data.email)
-        console.log(response.data.password)
-        refFormLogin.current?.reset();
+        const token = response.data.token;
+        const testeUserEmail = response.data.testeUserEmail;
+        console.log(`${response}, ${token}, email: ${testeUserEmail}`);
 
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 3000);
+        // window.location.href = "/";
+        // refFormLogin.current?.reset();
       }
     } catch (error: any) {
-      console.error("Erro ao registrar usuário:", error.message);
+      console.error("Email ou senha invalidos2", error.message);
     }
   }
 
@@ -58,15 +66,28 @@ function FormLoginUser() {
           </div>
           <Form.Group className="mb-3 sm:px-8" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" name="email" placeholder="email" required />
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="email"
+              required
+            />
           </Form.Group>
 
           <Form.Group className="mb-3 sm:px-8" controlId="formBasicPassword">
             <Form.Label>Senha</Form.Label>
-            <Form.Control type="password" name="password" placeholder="senha" required />
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="senha"
+              required
+            />
           </Form.Group>
           <Button variant="primary" type="submit">
             Logar
+          </Button>
+          <Button variant="primary" type="button" onClick={() => testeProvider()}>
+            Testar
           </Button>
         </Form>
       </section>
