@@ -1,10 +1,12 @@
 require("dotenv").config();
 
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const { Pool } = require("pg");
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
+const secretKey = process.env.JWT_SECRET;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
@@ -82,12 +84,25 @@ app.post("/login", async (req, res) => {
   try {
     let { email, password } = req.body;
 
-    const values = {email: email, password: password};
-
-    res.status(200).json(values);
+    const values = { email, password };
     console.log(values);
+    
+    const userQuery = "SELECT * FROM users WHERE email = $1 AND password = $2";
+    const userResult = await pool.query(userQuery, [email, password]);
+
+    if (userResult.rows.length === 0) {
+      return res.status(401).json({ error: "Email ou senha inválidos" });
+    }
+
+    const user = userResult.rows[0];
+    const token = jwt.sign({ userId: user.id, email: user.email }, secretKey);
+    const testeUserEmail = user.email;
+
+    res.status(200).json({ token, testeUserEmail });
+
   } catch (error) {
-    console.error("Falha ao receber os dados", error.message);
+    console.error("Falha ao fazer login", error.message);
+    res.status(400).json({ error: "Dados inválidos" });
   }
 });
 
