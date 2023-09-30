@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Inter:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Inter:wght@300;400;500;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,15 +8,16 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 body {
   background: #fcf9f9;
 }
 
-*>* {
-  font-family: 'Inter', sans-serif;
-  font-family: 'Roboto', sans-serif;
+* > * {
+  font-family: "Inter", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .input-text {
