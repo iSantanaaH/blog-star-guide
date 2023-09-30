@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, SyntheticEvent, useRef } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
 
 function FormUserRegisterAccount() {
@@ -66,7 +67,7 @@ function FormUserRegisterAccount() {
   return (
     <Format>
       <Header />
-      <section className="container flex flex-col justify-center items-center">
+      <section className=" flex flex-col justify-center items-center">
         <div className="containerNotify">
           <ToastContainer />
         </div>
@@ -135,7 +136,7 @@ function FormUserRegisterAccount() {
             </Form.Group>
           </div>
 
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center justify-center">
             <Button
               className="px-5"
               variant="primary"
@@ -143,6 +144,9 @@ function FormUserRegisterAccount() {
             >
               Criar Conta
             </Button>
+            <span className="py-2">
+            Já tem conta? <Link href={"/pages/login"}>Faça login</Link>
+          </span>
           </div>
         </Form>
       </section>
