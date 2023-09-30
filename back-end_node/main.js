@@ -16,7 +16,7 @@ const pool = new Pool({
   user: "postgres",
   password: "15784267309",
   database: "blogstarguidedb",
-  port: 5433,
+  port: 5432,
   max: 1,
 });
 
@@ -96,9 +96,9 @@ app.post("/login", async (req, res) => {
 
     const user = userResult.rows[0];
     const token = jwt.sign({ userId: user.id, email: user.email }, secretKey);
-    const testeUserEmail = user.email;
+    const userName = user.name + " " + user.surname;
 
-    res.status(200).json({ token, testeUserEmail });
+    res.status(200).json({ token, userName });
 
   } catch (error) {
     console.error("Falha ao fazer login", error.message);
