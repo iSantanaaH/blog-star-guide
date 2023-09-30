@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import { SyntheticEvent, useContext, useRef } from "react";
 import axios from "axios";
 import { AuthContext } from "@/app/contexts/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function FormLoginUser() {
   const refFormLogin = useRef<HTMLFormElement | null>(null);
@@ -22,12 +24,7 @@ function FormLoginUser() {
         formDataObject[key] = value;
       });
 
-      // await signIn({
-      //   email: formDataObject.email,
-      //   password: formDataObject.password,
-      // });
-
-      console.log(formDataObject)
+      console.log(formDataObject);
 
       const response = await axios.post(
         "http://localhost:3333/login",
@@ -41,11 +38,18 @@ function FormLoginUser() {
 
       if (response.status === 200) {
         const token = response.data.token;
-        const testeUserEmail = response.data.testeUserEmail;
-        console.log(`${response}, ${token}, email: ${testeUserEmail}`);
+        const userName = response.data.userName;
 
-        // window.location.href = "/";
-        // refFormLogin.current?.reset();
+        const notifySucessLoginUserAccount = () =>
+          toast(`Bem vindo ${userName}`);
+
+        notifySucessLoginUserAccount();
+
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 3000);
+
+        refFormLogin.current?.reset();
       }
     } catch (error: any) {
       console.error("Email ou senha invalidos2", error.message);
@@ -55,6 +59,9 @@ function FormLoginUser() {
   return (
     <Format>
       <section className="flex flex-col justify-center items-center">
+        <div>
+          <ToastContainer />
+        </div>
         <Form
           onSubmit={handleSubmit}
           ref={refFormLogin}
@@ -86,7 +93,11 @@ function FormLoginUser() {
           <Button variant="primary" type="submit">
             Logar
           </Button>
-          <Button variant="primary" type="button" onClick={() => testeProvider()}>
+          <Button
+            variant="primary"
+            type="button"
+            onClick={() => testeProvider()}
+          >
             Testar
           </Button>
         </Form>
