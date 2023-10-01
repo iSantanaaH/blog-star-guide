@@ -8,7 +8,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  text-decoration: none;
 }
 
 body {
@@ -28,4 +27,14 @@ body {
 .input-post {
   @apply mt-1 block w-60 px-3 py-2 bg-white border border-slate-300 rounded-2xl text-sm shadow-sm placeholder-slate-500;
   @apply focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500;
+}
+
+.input-forms {
+  @apply mt-1 block w-60 px-3 py-2 bg-white border border-slate-300 rounded-2xl text-sm shadow-sm placeholder-slate-500;
+  @apply focus:outline-none focus:border-sky-300 focus:ring-1 focus:ring-sky-500;
+}
+
+.button-form {
+  @apply bg-blue-400 px-2 py-1 rounded-lg text-gray-50 text-lg;
+  @apply hover:bg-blue-500 hover:transition-all;
 }
