@@ -62,7 +62,7 @@ function FormLoginUser() {
 
   return (
     <Format>
-      <section className="flex flex-col justify-center items-center">
+      <section className="flex flex-col justify-center items-center lg:w-full">
         <div>
           <ToastContainer />
         </div>
@@ -70,7 +70,7 @@ function FormLoginUser() {
           onSubmit={handleSubmit}
           ref={refFormLogin}
           method="POST"
-          className="flex flex-col justify-center items-center md:w-2/6 mt-32 p-5 bg-slate-200 sml:w-64 rounded-2xl"
+          className="flex flex-col justify-center items-center mt-32 p-5 bg-slate-200 sml:w-64 rounded-2xl lg:w-2/6"
         >
           <div>
             <h2 className="font-bold text-4xl text-center pb-1">Login</h2>
@@ -94,7 +94,10 @@ function FormLoginUser() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3 sm:px-8 sml:flex sml:flex-col" controlId="formBasicPassword">
+          <Form.Group
+            className="mb-3 sm:px-8 sml:flex sml:flex-col sm639:flex sm639:flex-col md:flex md:flex-col"
+            controlId="formBasicPassword"
+          >
             <Button variant="primary" type="submit">
               Logar
             </Button>
