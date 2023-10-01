@@ -55,6 +55,7 @@ const Slide = () => {
             width={600}
             height={600}
             alt="Picture Blog"
+            priority
           />
         </Link>
       </div>
@@ -86,7 +87,7 @@ const Slide = () => {
           criatividade, autoconhecimento e crescimento espiritual.
         </p>
         <Author>
-
+          
         </Author>
       </div>
     </div>

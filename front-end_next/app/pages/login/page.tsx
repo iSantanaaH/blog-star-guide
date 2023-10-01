@@ -1,15 +1,12 @@
 "use client";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Format from "@/layout/formatPages";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { SyntheticEvent, useContext, useRef } from "react";
+import Format from "@/layout/format";
+import Link from "next/link";
 import axios from "axios";
 import { AuthContext } from "@/app/contexts/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { setCookie } from "nookies";
+import { SyntheticEvent, useContext, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
 
 function FormLoginUser() {
   const refFormLogin = useRef<HTMLFormElement | null>(null);
@@ -66,7 +63,7 @@ function FormLoginUser() {
         <div>
           <ToastContainer />
         </div>
-        <Form
+        <form
           onSubmit={handleSubmit}
           ref={refFormLogin}
           method="POST"
@@ -75,37 +72,30 @@ function FormLoginUser() {
           <div>
             <h2 className="font-bold text-4xl text-center pb-1">Login</h2>
           </div>
-          <Form.Group className="mb-3 sm:px-8" controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              placeholder="email"
-              required
-            />
-          </Form.Group>
+          <div className="mb-3 sm:px-8" id="formBasicEmail">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="email" required />
+          </div>
 
-          <Form.Group className="mb-3 sm:px-8" controlId="formBasicPassword">
-            <Form.Label>Senha</Form.Label>
-            <Form.Control
+          <div className="mb-3 sm:px-8" id="formBasicPassword">
+            <label>Senha</label>
+            <input
               type="password"
               name="password"
               placeholder="senha"
               required
             />
-          </Form.Group>
-          <Form.Group
+          </div>
+          <div
             className="mb-3 sm:px-8 sml:flex sml:flex-col sm639:flex sm639:flex-col md:flex md:flex-col"
-            controlId="formBasicPassword"
+            id="formBasicPassword"
           >
-            <Button variant="primary" type="submit">
-              Logar
-            </Button>
+            <button type="submit">Logar</button>
             <span className="py-2">
               Não tem conta? <Link href={"/pages/register"}>Registre-se</Link>
             </span>
-          </Form.Group>
-        </Form>
+          </div>
+        </form>
       </section>
     </Format>
   );

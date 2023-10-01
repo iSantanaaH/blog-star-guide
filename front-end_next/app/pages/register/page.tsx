@@ -1,13 +1,17 @@
 "use client";
+
+{
+  /* Main Import */
+}
 import Format from "@/layout/format";
-import Header from "@/app/Components/HeaderPages/header";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState, SyntheticEvent, useRef } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
+import React, { useState, SyntheticEvent, useRef } from "react";
+import { ToastContainer, toast } from "react-toastify";
+
+{
+  /* Styles */
+}
 import "react-toastify/dist/ReactToastify.css";
 
 function FormUserRegisterAccount() {
@@ -48,7 +52,6 @@ function FormUserRegisterAccount() {
         setTimeout(() => {
           window.location.href = "http://localhost:3000/pages/login";
         }, 3000);
-
       } else {
         if (response.data.error === "Este email já está cadastrado.") {
           notifyErrorCreateUser("Este email já está cadastrado.");
@@ -62,16 +65,15 @@ function FormUserRegisterAccount() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   return (
     <Format>
-      <Header />
       <section className=" flex flex-col justify-center items-center">
         <div className="containerNotify">
           <ToastContainer />
         </div>
-        <Form
+        <form
           method="POST"
           onSubmit={handleSubmit}
           ref={formRef}
@@ -82,73 +84,54 @@ function FormUserRegisterAccount() {
           </div>
           <div className="grid grid-cols-2 flex-wrap justify-center">
             <div className="col-span-1">
-              <Form.Group className="mb-3 sm:px-8" controlId="controlName">
-                <Form.Label>Nome</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="nome"
-                  name="name"
-                  required
-                />
-              </Form.Group>
+              <div className="mb-3 sm:px-8" id="controlName">
+                <label>Nome</label>
+                <input type="text" placeholder="nome" name="name" required />
+              </div>
             </div>
             <div className="col-span-1">
-              <Form.Group className="mb-3 sm:px-8" controlId="controlSurname">
-                <Form.Label>Sobrenome</Form.Label>
-                <Form.Control
+              <div className="mb-3 sm:px-8" id="controlSurname">
+                <label>Sobrenome</label>
+                <input
                   type="text"
                   placeholder="sobrenome"
                   name="surname"
                   required
                 />
-              </Form.Group>
+              </div>
             </div>
-            <Form.Group className="mb-3 sm:px-8" controlId="controlEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="email"
-                name="email"
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3 sm:px-8" controlId="controlPhone">
-              <Form.Label>Telefone</Form.Label>
-              <Form.Control
-                type="tel"
-                placeholder="telefone"
-                name="phone"
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3 sm:px-8" controlId="controlPassword">
-              <Form.Label>Senha</Form.Label>
-              <Form.Control
+            <div className="mb-3 sm:px-8" id="controlEmail">
+              <label>Email</label>
+              <input type="email" placeholder="email" name="email" required />
+            </div>
+            <div className="mb-3 sm:px-8" id="controlPhone">
+              <label>Telefone</label>
+              <input type="tel" placeholder="telefone" name="phone" required />
+            </div>
+            <div className="mb-3 sm:px-8" id="controlPassword">
+              <label>Senha</label>
+              <input
                 type="password"
                 placeholder="senha"
                 name="password"
                 required
               />
-            </Form.Group>
-            <Form.Group className="mb-3 sm:px-8" controlId="controlBirthday">
-              <Form.Label>Data de nascimento</Form.Label>
-              <Form.Control type="date" name="birthday" required />
-            </Form.Group>
+            </div>
+            <div className="mb-3 sm:px-8" id="controlBirthday">
+              <label>Data de nascimento</label>
+              <input type="date" name="birthday" required />
+            </div>
           </div>
 
           <div className="flex flex-col items-center justify-center">
-            <Button
-              className="px-5"
-              variant="primary"
-              type="submit"
-            >
+            <button className="px-5" type="submit">
               Criar Conta
-            </Button>
+            </button>
             <span className="py-2">
-            Já tem conta? <Link href={"/pages/login"}>Faça login</Link>
-          </span>
+              Já tem conta? <Link href={"/pages/login"}>Faça login</Link>
+            </span>
           </div>
-        </Form>
+        </form>
       </section>
     </Format>
   );

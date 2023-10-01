@@ -33,10 +33,7 @@ const CreatePost = () => {
             >
               Descrição do post
             </label>
-            <textarea
-              className="mt-2 w-ful sm:w-full"
-              id="default"
-            ></textarea>
+            <textarea className="mt-2 w-ful sm:w-full" id="default"></textarea>
           </div>
         </div>
 

@@ -36,6 +36,7 @@ const latestPost = () => {
             height={350}
             alt="Picture Blog"
             className="rounded-sm"
+            style={{ width: "auto", height: "auto" }}
           />
         </Link>
       </div>
@@ -46,8 +47,11 @@ const latestPost = () => {
             Criado em:
           </span>
         </Link>
-        <Link href={'/'}>
-          <span className='text-gray-800 hover:text-gray-600'> Agosto, 28 2023</span>
+        <Link href={"/"}>
+          <span className="text-gray-800 hover:text-gray-600">
+            {" "}
+            Agosto, 28 2023
+          </span>
         </Link>
       </div>
       <div className="title">
@@ -57,7 +61,10 @@ const latestPost = () => {
           </p>
         </Link>
         <p className="text-gray-500 py-3">
-          Aqui, mergulhamos nos mistérios celestiais da inspiração e da sabedoria, trazendo-lhe histórias cativantes e reflexões profundas. Acompanhe-nos enquanto navegamos pelos intricados caminhos da criatividade, autoconhecimento e crescimento espiritual.
+          Aqui, mergulhamos nos mistérios celestiais da inspiração e da
+          sabedoria, trazendo-lhe histórias cativantes e reflexões profundas.
+          Acompanhe-nos enquanto navegamos pelos intricados caminhos da
+          criatividade, autoconhecimento e crescimento espiritual.
         </p>
         <Author>
           
