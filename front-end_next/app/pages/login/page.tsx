@@ -72,14 +72,21 @@ function FormLoginUser() {
           <div>
             <h2 className="font-bold text-4xl text-center pb-1">Login</h2>
           </div>
-          <div className="mb-3 sm:px-8" id="formBasicEmail">
+          <div className="m-4 sm:px-8" id="formBasicEmail">
             <label>Email</label>
-            <input type="email" name="email" placeholder="email" required />
+            <input
+              className="input-forms"
+              type="email"
+              name="email"
+              placeholder="email"
+              required
+            />
           </div>
 
           <div className="mb-3 sm:px-8" id="formBasicPassword">
             <label>Senha</label>
             <input
+            className="input-forms"
               type="password"
               name="password"
               placeholder="senha"
@@ -87,12 +94,12 @@ function FormLoginUser() {
             />
           </div>
           <div
-            className="mb-3 sm:px-8 sml:flex sml:flex-col sm639:flex sm639:flex-col md:flex md:flex-col"
+            className="mb-3 sm:px-8 pt-4 sml:flex sml:flex-col sm639:flex sm639:flex-col md:flex md:flex-col"
             id="formBasicPassword"
           >
-            <button type="submit">Logar</button>
-            <span className="py-2">
-              Não tem conta? <Link href={"/pages/register"}>Registre-se</Link>
+            <button className="button-form" type="submit">Logar</button>
+            <span className="py-4">
+              Não tem conta? <Link className="text-base text-blue-800 hover:text-blue-700" href={"/pages/register"}>Registre-se</Link>
             </span>
           </div>
         </form>
