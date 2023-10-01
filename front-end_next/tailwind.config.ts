@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       screens: {
         "sml": {"max": "479px"},
-        "sm639": {"max": "639px"},
+        "sm639": {"max": "767px"},
       },
     },
   },
