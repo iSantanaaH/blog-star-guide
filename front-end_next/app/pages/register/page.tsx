@@ -19,8 +19,8 @@ function FormUserRegisterAccount() {
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const notifySuccesCreateUser = () => toast("Sucesso ao criar usuário!");
-  const notifyErrorCreateUser = (errorMessage: string) => {
-    toast.error(`Error: ${errorMessage}`);
+  const notifyErrorCreateUser = () => {
+    toast.error('O email já foi cadastrado');
   };
 
   async function handleSubmit(event: SyntheticEvent) {
@@ -45,23 +45,20 @@ function FormUserRegisterAccount() {
         }
       );
 
+      console.log(response.status);
+
       if (response.status === 200) {
         formRef.current?.reset();
         notifySuccesCreateUser();
 
         setTimeout(() => {
-          window.location.href = "http://localhost:3000/pages/login";
+          window.location.href = "/pages/login";
         }, 3000);
       } else {
-        if (response.data.error === "Este email já está cadastrado.") {
-          notifyErrorCreateUser("Este email já está cadastrado.");
-        } else {
-          notifyErrorCreateUser(response.data.error);
-        }
+        notifyErrorCreateUser();
       }
     } catch (error: any) {
-      console.error("Erro ao registrar usuário:", error.message);
-      notifyErrorCreateUser(error.message);
+      console.error("Erro do catch:", error.erro);
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +66,7 @@ function FormUserRegisterAccount() {
 
   return (
     <Format>
-      <section className=" flex flex-col justify-center items-center">
+      <section className="container flex flex-col justify-center items-center">
         <div className="containerNotify">
           <ToastContainer />
         </div>
@@ -86,13 +83,20 @@ function FormUserRegisterAccount() {
             <div className="col-span-1">
               <div className="mb-3 sm:px-8" id="controlName">
                 <label>Nome</label>
-                <input type="text" placeholder="nome" name="name" required />
+                <input
+                  className="input-forms"
+                  type="text"
+                  placeholder="nome"
+                  name="name"
+                  required
+                />
               </div>
             </div>
             <div className="col-span-1">
               <div className="mb-3 sm:px-8" id="controlSurname">
                 <label>Sobrenome</label>
                 <input
+                  className="input-forms"
                   type="text"
                   placeholder="sobrenome"
                   name="surname"
@@ -102,15 +106,28 @@ function FormUserRegisterAccount() {
             </div>
             <div className="mb-3 sm:px-8" id="controlEmail">
               <label>Email</label>
-              <input type="email" placeholder="email" name="email" required />
+              <input
+                className="input-forms"
+                type="email"
+                placeholder="email"
+                name="email"
+                required
+              />
             </div>
             <div className="mb-3 sm:px-8" id="controlPhone">
               <label>Telefone</label>
-              <input type="tel" placeholder="telefone" name="phone" required />
+              <input
+                className="input-forms"
+                type="tel"
+                placeholder="telefone"
+                name="phone"
+                required
+              />
             </div>
             <div className="mb-3 sm:px-8" id="controlPassword">
               <label>Senha</label>
               <input
+                className="input-forms"
                 type="password"
                 placeholder="senha"
                 name="password"
@@ -119,16 +136,27 @@ function FormUserRegisterAccount() {
             </div>
             <div className="mb-3 sm:px-8" id="controlBirthday">
               <label>Data de nascimento</label>
-              <input type="date" name="birthday" required />
+              <input
+                className="input-forms"
+                type="date"
+                name="birthday"
+                required
+              />
             </div>
           </div>
 
           <div className="flex flex-col items-center justify-center">
-            <button className="px-5" type="submit">
+            <button className="button-form pt-4" type="submit">
               Criar Conta
             </button>
             <span className="py-2">
-              Já tem conta? <Link href={"/pages/login"}>Faça login</Link>
+              Já tem conta?{" "}
+              <Link
+                className="text-base text-blue-800 hover:text-blue-700"
+                href={"/pages/login"}
+              >
+                Faça login
+              </Link>
             </span>
           </div>
         </form>
