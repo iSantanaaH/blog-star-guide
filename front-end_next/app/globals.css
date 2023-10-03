@@ -38,3 +38,8 @@ body {
   @apply bg-blue-400 px-2 py-1 rounded-lg text-gray-50 text-lg;
   @apply hover:bg-blue-500 hover:transition-all;
 }
+
+.links-navBar {
+  @apply bg-slate-500 px-2 py-1 rounded-md text-gray-50 text-sm;
+  @apply hover:bg-blue-500 hover:transition-all;
+}

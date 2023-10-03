@@ -58,22 +58,25 @@ const HeaderComponent = () => {
               <div
                 ref={dropdownRef}
                 onClick={enableDropdown}
+                className="relative" // Adicionei esta classe para aplicar estilos relativos
               >
                 <FaUserCircle color="#888888" />
+                {dropdown && (
+                  <div className="bg-slate-200 p-3 rounded-md absolute flex flex-col top-5 right-3 w-30">
+                    {/* Seta para cima no canto superior direito */}
+                    <div className="absolute right-0 top-0 w-4 h-4 border-t-2 border-r-2 border-solid border-zinc-500 border-opacity-75"></div>
+                    <Link className="links-navBar mb-1 dropdown-link" href={"/"}>
+                      Home
+                    </Link>
+                    <Link className="links-navBar w-full mb-1 dropdown-link" href={"/pages/login"}>
+                      Login
+                    </Link>
+                    <Link className="links-navBar dropdown-link" href={"/pages/register"}>
+                      Cadastrar
+                    </Link>
+                  </div>
+                )}
               </div>
-              {dropdown && (
-                <div className="bg-slate-400 p-3 rounded-md absolute flex flex-col top-6 right-1 w-30">
-                  <Link className="pb-1 dropdown-link" href={"/"}>
-                    Pagina inicial
-                  </Link>
-                  <Link className="pb-1 dropdown-link" href={"/pages/login"}>
-                    Login
-                  </Link>
-                  <Link className="dropdown-link" href={"/pages/register"}>
-                    Cadastrar
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
         </div>
