@@ -12,6 +12,7 @@ const config: Config = {
       screens: {
         "sml": {"max": "479px"},
         "sm639": {"max": "767px"},
+        "sml639": {"max": "639px"},
       },
     },
   },

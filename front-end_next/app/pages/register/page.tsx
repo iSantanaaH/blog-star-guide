@@ -20,7 +20,7 @@ function FormUserRegisterAccount() {
 
   const notifySuccesCreateUser = () => toast("Sucesso ao criar usuário!");
   const notifyErrorCreateUser = () => {
-    toast.error('O email já foi cadastrado');
+    toast.error("O email já foi cadastrado");
   };
 
   async function handleSubmit(event: SyntheticEvent) {
@@ -66,7 +66,7 @@ function FormUserRegisterAccount() {
 
   return (
     <Format>
-      <section className="container flex flex-col justify-center items-center">
+      <section className="flex flex-col justify-center items-center mx-auto">
         <div className="containerNotify">
           <ToastContainer />
         </div>
@@ -74,12 +74,12 @@ function FormUserRegisterAccount() {
           method="POST"
           onSubmit={handleSubmit}
           ref={formRef}
-          className="grid mt-32 py-5 w-2/4 bg-slate-200 rounded-2xl"
+          className="flex flex-col md:w-3/5 lg:w-2/6 sml:w-5/6 sml:p-4 items-center m-32 py-5 bg-slate-200 rounded-2xl"
         >
           <div className="">
-            <h2 className="font-bold text-4xl text-center pb-1">Registrar</h2>
+            <h2 className="font-bold text-4xl text-center pb-3">Registre-se</h2>
           </div>
-          <div className="grid grid-cols-2 flex-wrap justify-center">
+          <div className="grid grid-cols-2 sml639:grid-cols-1 sml639:p-7 sml:grid-cols-1 flex-wrap justify-center">
             <div className="col-span-1">
               <div className="mb-3 sm:px-8" id="controlName">
                 <label>Nome</label>
@@ -146,10 +146,10 @@ function FormUserRegisterAccount() {
           </div>
 
           <div className="flex flex-col items-center justify-center">
-            <button className="button-form pt-4" type="submit">
+            <button className="button-form pt-4 sml:mt-3" type="submit">
               Criar Conta
             </button>
-            <span className="py-2">
+            <span className="py-2 sml:pt-3">
               Já tem conta?{" "}
               <Link
                 className="text-base text-blue-800 hover:text-blue-700"

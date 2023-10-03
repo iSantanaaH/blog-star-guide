@@ -30,7 +30,7 @@ body {
 }
 
 .input-forms {
-  @apply mt-1 block w-60 px-3 py-2 bg-white border border-slate-300 rounded-2xl text-sm shadow-sm placeholder-slate-500;
+  @apply mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-2xl text-sm shadow-sm placeholder-slate-500;
   @apply focus:outline-none focus:border-sky-300 focus:ring-1 focus:ring-sky-500;
 }
 
