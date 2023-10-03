@@ -1,25 +1,46 @@
 "use client";
 
-{
-  /* Main Import */
-}
 import Format from "@/layout/format";
 import axios from "axios";
 import Link from "next/link";
 import React, { useState, SyntheticEvent, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-{
-  /* Styles */
-}
 import "react-toastify/dist/ReactToastify.css";
 
 function FormUserRegisterAccount() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [firstLetterUppercaseName, setfirstLetterUppercaseName] = useState("");
+  const [firstLetterUppercaseSurname, setfirstLetterUppercaseSurname] = useState("");
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const notifySuccesCreateUser = () => toast("Sucesso ao criar usuário!");
-  const notifyErrorCreateUser = () => {
+  function changefirstLetterUppercaseName(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const newValue = event.target.value;
+
+    const capitalizedValue =
+      newValue.charAt(0).toUpperCase() + newValue.slice(1);
+
+    setfirstLetterUppercaseName(capitalizedValue);
+  }
+
+  function changefirstLetterUppercaseSurname(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const newValue = event.target.value;
+
+    const capitalizedValue =
+      newValue.charAt(0).toUpperCase() + newValue.slice(1);
+
+    setfirstLetterUppercaseSurname(capitalizedValue);
+  }
+
+  function notifySuccesCreateUser() {
+    toast("Sucesso ao criar usuário!");
+  };
+
+  function notifyErrorCreateUser() {
     toast.error("O email já foi cadastrado");
   };
 
@@ -85,6 +106,8 @@ function FormUserRegisterAccount() {
                 <label>Nome</label>
                 <input
                   className="input-forms"
+                  value={firstLetterUppercaseName}
+                  onChange={changefirstLetterUppercaseName}
                   type="text"
                   placeholder="nome"
                   name="name"
@@ -97,6 +120,8 @@ function FormUserRegisterAccount() {
                 <label>Sobrenome</label>
                 <input
                   className="input-forms"
+                  value={firstLetterUppercaseSurname}
+                  onChange={changefirstLetterUppercaseSurname}
                   type="text"
                   placeholder="sobrenome"
                   name="surname"
