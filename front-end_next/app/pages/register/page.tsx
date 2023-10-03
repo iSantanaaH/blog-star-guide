@@ -57,6 +57,25 @@ function FormUserRegisterAccount() {
 
   async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
+
+    const nameValue = firstLetterUppercaseName.trim();
+    const surnameValue = firstLetterUppercaseSurname.trim();
+    const phoneValue = phone.trim();
+    const emailValue = (event.currentTarget as HTMLFormElement)["email"].value.trim();
+    const passwordValue = (event.currentTarget as HTMLFormElement)["password"].value.trim();
+
+    if (
+      nameValue === "" ||
+      surnameValue === "" ||
+      phoneValue === "" ||
+      emailValue === "" ||
+      passwordValue === ""
+    ) {
+      toast.error("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+      
+
     setIsLoading(true);
 
     try {
@@ -175,6 +194,7 @@ function FormUserRegisterAccount() {
                 placeholder="senha"
                 name="password"
                 required
+                minLength={8}
               />
             </div>
             <div className="mb-3 sm:px-8" id="controlBirthday">
