@@ -11,7 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 function FormUserRegisterAccount() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [firstLetterUppercaseName, setfirstLetterUppercaseName] = useState("");
-  const [firstLetterUppercaseSurname, setfirstLetterUppercaseSurname] = useState("");
+  const [firstLetterUppercaseSurname, setfirstLetterUppercaseSurname] =
+    useState("");
+  const [phone, setPhone] = useState("");
   const formRef = useRef<HTMLFormElement | null>(null);
 
   function changefirstLetterUppercaseName(
@@ -38,11 +40,20 @@ function FormUserRegisterAccount() {
 
   function notifySuccesCreateUser() {
     toast("Sucesso ao criar usuário!");
-  };
+  }
 
   function notifyErrorCreateUser() {
     toast.error("O email já foi cadastrado");
-  };
+  }
+
+  function removeSpecialCharacters(value: string) {
+    return value.replace(/\D/g, "");
+  }
+
+  function changeInputPhone(event: React.ChangeEvent<HTMLInputElement>) {
+    const newPhone = removeSpecialCharacters(event.target.value);
+    setPhone(newPhone);
+  }
 
   async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -111,6 +122,7 @@ function FormUserRegisterAccount() {
                   type="text"
                   placeholder="nome"
                   name="name"
+                  minLength={3}
                   required
                 />
               </div>
@@ -125,6 +137,7 @@ function FormUserRegisterAccount() {
                   type="text"
                   placeholder="sobrenome"
                   name="surname"
+                  minLength={3}
                   required
                 />
               </div>
@@ -137,6 +150,7 @@ function FormUserRegisterAccount() {
                 placeholder="email"
                 name="email"
                 required
+                minLength={10}
               />
             </div>
             <div className="mb-3 sm:px-8" id="controlPhone">
@@ -144,8 +158,12 @@ function FormUserRegisterAccount() {
               <input
                 className="input-forms"
                 type="tel"
-                placeholder="telefone"
+                placeholder="(99)99999-9999"
                 name="phone"
+                value={phone}
+                onChange={changeInputPhone}
+                minLength={11}
+                maxLength={11}
                 required
               />
             </div>
