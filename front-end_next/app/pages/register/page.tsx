@@ -61,14 +61,24 @@ function FormUserRegisterAccount() {
     const nameValue = firstLetterUppercaseName.trim();
     const surnameValue = firstLetterUppercaseSurname.trim();
     const phoneValue = phone.trim();
-    const emailValue = (event.currentTarget as HTMLFormElement)["email"].value.trim();
-    const passwordValue = (event.currentTarget as HTMLFormElement)["password"].value.trim();
+    const emailValue = (event.currentTarget as HTMLFormElement)[
+      "email"
+    ].value.trim();
+    const passwordValue = (event.currentTarget as HTMLFormElement)[
+      "password"
+    ].value.trim();
+    const birthdayValue = (event.currentTarget as HTMLFormElement)["birthday"]
+      .value;
 
     const minLengthName = 3;
     const minLengthSurname = 3;
     const minLengthPhone = 11;
     const minLengthEmail = 10;
     const minLengthPassword = 8;
+    const minAge = 5;
+    const birthdayDate = new Date(birthdayValue);
+    const currentDate = new Date();
+    const age = currentDate.getFullYear() - birthdayDate.getFullYear();
 
     if (
       nameValue === "" ||
@@ -80,12 +90,21 @@ function FormUserRegisterAccount() {
       surnameValue.length < minLengthSurname ||
       phoneValue.length < minLengthPhone ||
       emailValue.length < minLengthEmail ||
-      passwordValue.length < minLengthPassword
+      passwordValue.length < minLengthPassword ||
+      birthdayValue.length < minAge
     ) {
-      toast.error("Alguns campos estão vazios ou não possuem a quantidade mínima de caracteres");
+      toast.error(
+        "Alguns campos estão vazios ou não possuem a quantidade mínima de caracteres"
+      );
       return;
     }
-      
+
+    if (age < minAge) {
+      toast.error(
+        "Você deve ter pelo menos 5 anos de idade para criar uma conta"
+      );
+      return;
+    }
 
     setIsLoading(true);
 
@@ -207,7 +226,9 @@ function FormUserRegisterAccount() {
                 required
                 minLength={8}
               />
-              <span className="text-slate-500 text-sm ml-2">mínimo 8 caracteres</span>
+              <span className="text-slate-500 text-sm ml-2">
+                mínimo 8 caracteres
+              </span>
             </div>
             <div className="mb-3 sm:px-8" id="controlBirthday">
               <label>Data de nascimento</label>
@@ -219,7 +240,6 @@ function FormUserRegisterAccount() {
               />
             </div>
           </div>
-
           <div className="flex flex-col items-center justify-center">
             <button className="button-form pt-4 sml:mt-3" type="submit">
               Criar Conta
