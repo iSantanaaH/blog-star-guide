@@ -207,6 +207,7 @@ function FormUserRegisterAccount() {
                 required
                 minLength={8}
               />
+              <span className="text-slate-500 text-sm ml-2">mínimo 8 caracteres</span>
             </div>
             <div className="mb-3 sm:px-8" id="controlBirthday">
               <label>Data de nascimento</label>
