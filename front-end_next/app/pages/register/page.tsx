@@ -64,14 +64,25 @@ function FormUserRegisterAccount() {
     const emailValue = (event.currentTarget as HTMLFormElement)["email"].value.trim();
     const passwordValue = (event.currentTarget as HTMLFormElement)["password"].value.trim();
 
+    const minLengthName = 3;
+    const minLengthSurname = 3;
+    const minLengthPhone = 11;
+    const minLengthEmail = 10;
+    const minLengthPassword = 8;
+
     if (
       nameValue === "" ||
       surnameValue === "" ||
       phoneValue === "" ||
       emailValue === "" ||
-      passwordValue === ""
+      passwordValue === "" ||
+      nameValue.length < minLengthName ||
+      surnameValue.length < minLengthSurname ||
+      phoneValue.length < minLengthPhone ||
+      emailValue.length < minLengthEmail ||
+      passwordValue.length < minLengthPassword
     ) {
-      toast.error("Por favor, preencha todos os campos obrigatórios.");
+      toast.error("Alguns campos estão vazios ou não possuem a quantidade mínima de caracteres");
       return;
     }
       
