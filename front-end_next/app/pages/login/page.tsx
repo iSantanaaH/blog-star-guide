@@ -15,6 +15,25 @@ function FormLoginUser() {
   async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
+    const emailValue = (event.currentTarget as HTMLFormElement)["email"].value;
+    const passwordValue = (event.currentTarget as HTMLFormElement)["password"]
+      .value;
+
+    const minLengthEmail = 10;
+    const minLengthPassword = 8;
+
+    if (
+      emailValue === "" ||
+      passwordValue === "" ||
+      emailValue.length < minLengthEmail ||
+      passwordValue.length < minLengthPassword
+    ) {
+      toast.error(
+        "Alguns campos estão vazios ou não possuem a quantidade mínima de caracteres"
+      );
+      return;
+    }
+
     try {
       const formData = new FormData(event.currentTarget as HTMLFormElement);
 
@@ -86,7 +105,7 @@ function FormLoginUser() {
           <div className="mb-3 sm:px-8" id="formBasicPassword">
             <label>Senha</label>
             <input
-            className="input-forms"
+              className="input-forms"
               type="password"
               name="password"
               placeholder="senha"
@@ -97,9 +116,17 @@ function FormLoginUser() {
             className="mb-3 sm:px-8 pt-4 sml:flex sml:flex-col sm639:flex sm639:flex-col md:flex md:flex-col"
             id="formBasicPassword"
           >
-            <button className="button-form" type="submit">Logar</button>
+            <button className="button-form" type="submit">
+              Logar
+            </button>
             <span className="py-4">
-              Não tem conta? <Link className="text-base text-blue-800 hover:text-blue-700" href={"/pages/register"}>Registre-se</Link>
+              Não tem conta?{" "}
+              <Link
+                className="text-base text-blue-800 hover:text-blue-700"
+                href={"/pages/register"}
+              >
+                Registre-se
+              </Link>
             </span>
           </div>
         </form>
