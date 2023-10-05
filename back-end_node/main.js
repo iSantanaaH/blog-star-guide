@@ -28,13 +28,35 @@ const checkTableUsersQuery = `
   )
 `;
 
+const checkTablePostsQuery = `
+  SELECT EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_name = 'posts'
+  )
+`;
+
+const checkTableUserPermission = `
+  SELECT EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_name = 'user_permission'
+  )
+`;
+
 (async () => {
   const client = await pool.connect();
   try {
-    const result = await client.query(checkTableUsersQuery);
-    const tableExists = result.rows[0].exists;
+    const resultUserQuery = await client.query(checkTableUsersQuery);
+    const resultPostsQuery = await client.query(checkTablePostsQuery);
+    const resultUserPermissionQuery = await client.query(
+      checkTableUserPermission
+    );
+    const tableUserExists = resultUserQuery.rows[0].exists;
+    const tablePostsExists = resultPostsQuery.rows[0].exists;
+    const tableUserPermission = resultUserPermissionQuery.rows[0].exists;
 
-    if (!tableExists) {
+    if (!tableUserExists) {
       const createTableUserQuery = `
       CREATE TABLE IF NOT EXISTS "users" (
         id SERIAL PRIMARY KEY,
@@ -48,6 +70,30 @@ const checkTableUsersQuery = `
       )
     `;
       await client.query(createTableUserQuery);
+    }
+
+    if (!tablePostsExists) {
+      const createTablePostsQuery = `
+    CREATE TABLE IF NOT EXISTS "posts" (
+      id SERIAL PRIMARY KEY,
+      titule VARCHAR(255) NOT NULL,
+      content VARCHAR(255) NOT NULL,
+      date_created TIMESTAMP,
+      data_change TIMESTAMP,
+      comments VARCHAR(255),
+      user_id INT NOT NULL
+    )
+    `;
+      await client.query(createTablePostsQuery);
+    }
+
+    if (!tableUserPermission) {
+      const createTableUserPermissionQuery = `
+        CREATE TABLE IF NOT EXISTS "user_permission" (
+          id SERIAL PRIMARY KEY
+        )
+      `;
+      await client.query(createTableUserPermissionQuery);
     }
   } finally {
     client.release();
@@ -86,7 +132,7 @@ app.post("/login", async (req, res) => {
 
     const values = { email, password };
     console.log(values);
-    
+
     const userQuery = "SELECT * FROM users WHERE email = $1 AND password = $2";
     const userResult = await pool.query(userQuery, [email, password]);
 
@@ -99,10 +145,23 @@ app.post("/login", async (req, res) => {
     const userName = user.name + " " + user.surname;
 
     res.status(200).json({ token, userName });
-
   } catch (error) {
     console.error("Falha ao fazer login", error.message);
     res.status(400).json({ error: "Dados inválidos" });
+  }
+});
+
+app.post("/createpost", async (req, res) => {
+  try {
+    let { titule, content } = req.body;
+
+    const values = { titule, content };
+    res.status(200).json({ values });
+    console.log(values);
+  } catch (error) {
+    console.error("Erro ao criar o post", error.message);
+    res.status(400);
+    json({ error: "Erro ao criar o post" });
   }
 });
 
