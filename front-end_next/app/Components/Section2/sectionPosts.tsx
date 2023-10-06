@@ -5,7 +5,7 @@ import Author from "../Child/author";
 
 const SectionPosts = () => {
   return (
-    <section className="container mx-auto md:px-20 py-10">
+    <section className="container mx-auto md:px-20 py-10 sml:p-5">
       <h1 className="font-bold text-4xl py-12 text-center">Mais recente</h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
@@ -27,7 +27,7 @@ export default SectionPosts;
 
 const latestPost = () => {
   return (
-    <div className="item">
+    <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
       <div className="images">
         <Link href={"/"}>
           <Image
@@ -40,8 +40,8 @@ const latestPost = () => {
           />
         </Link>
       </div>
-      <div className="info flex justify-center flex-col py-4"></div>
-      <div className="cat">
+      <div className="info flex justify-center flex-col py-4 sml:py-2"></div>
+      <div className="cat sml:pb-1">
         <Link href={"/"}>
           <span className="text-orange-600 hover:text-orange-800">
             Criado em:
