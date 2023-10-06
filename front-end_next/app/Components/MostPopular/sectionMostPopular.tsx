@@ -7,10 +7,10 @@ import Author from "../Child/author";
 
 const MostPopular = () => {
   return (
-    <section className="container mx-auto md:px-20 py-16">
+    <section className="container mx-auto md:px-20 py-16 sml:p-5">
       <h1 className="font-bold text-4xl py-12 text-center">Mais popular</h1>
 
-      <Swiper spaceBetween={50} slidesPerView={2}>
+      <Swiper spaceBetween={50} slidesPerView={1}>
         <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
         <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
         <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>

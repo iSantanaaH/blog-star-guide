@@ -4,7 +4,7 @@ import Author from "../Child/author";
 
 const OtherPosts = () => {
   return (
-    <section className="container mx-auto md:px-20 py-16">
+    <section className="container mx-auto md:px-20 py-16 sml:pl-2">
       <div className="grid lg:grid-cols-2">
         <div className="item">
           <h1 className="font-bold text-4xl py-12 text-center">Outros posts</h1>
