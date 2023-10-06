@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Estrela Guia",
-  description: "Criado por Micael Santana",
+  description: "Esse é um blog sobre a estrela guia",
 };
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/images/star.ico" />
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} overflow-hidden`}>{children}</body>
     </html>
   );
 }
