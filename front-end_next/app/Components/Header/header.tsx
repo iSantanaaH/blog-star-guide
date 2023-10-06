@@ -68,11 +68,14 @@ const HeaderComponent = () => {
                     <Link className="links-navBar mb-1 dropdown-link" href={"/"}>
                       Home
                     </Link>
-                    <Link className="links-navBar w-full mb-1 dropdown-link" href={"/pages/login"}>
+                    <Link className="links-navBar w-full mb-1" href={"/pages/login"}>
                       Login
                     </Link>
-                    <Link className="links-navBar dropdown-link" href={"/pages/register"}>
+                    <Link className="links-navBar mb-1" href={"/pages/register"}>
                       Cadastrar
+                    </Link>
+                    <Link className="links-navBar" href={"/pages/createpost"}>
+                      Criar post
                     </Link>
                   </div>
                 )}

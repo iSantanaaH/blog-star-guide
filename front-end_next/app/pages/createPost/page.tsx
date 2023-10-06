@@ -51,7 +51,7 @@ const CreatePost = () => {
           <ToastContainer />
         </div>
 
-        <form method="POST" onSubmit={handleSubmit} ref={formRef}>
+        <form method="POST" onSubmit={handleSubmit} ref={formRef} className="bg-slate-200 rounded-2xl">
           <div className="flex justify-center py-10">
             <h1 className="font-bold text-4xl text-center pb-5">
               Criar Novo Post
