@@ -7,13 +7,15 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 export default function Home() {
   return (
-      <AuthProvider>
-    <Format>
-        <Section1></Section1>
-        <SectionPosts></SectionPosts>
-        <MostPopular></MostPopular>
-        <OtherPosts></OtherPosts>
-    </Format>
-      </AuthProvider>
+    <div className="sml:overflow-hidden">
+      <Format>
+        <AuthProvider>
+          <Section1></Section1>
+          <SectionPosts></SectionPosts>
+          <MostPopular></MostPopular>
+          <OtherPosts></OtherPosts>
+        </AuthProvider>
+      </Format>
+    </div>
   );
 }
