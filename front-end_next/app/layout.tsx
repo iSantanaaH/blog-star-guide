@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/images/star.ico" />
-      <body className={`${inter.className} overflow-hidden`}>{children}</body>
+      <body className={`${inter.className} overflow-x-hidden`}>{children}</body>
     </html>
   );
 }
