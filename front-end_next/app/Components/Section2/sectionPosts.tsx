@@ -5,7 +5,7 @@ import Author from "../Child/author";
 
 const SectionPosts = () => {
   return (
-    <section className="container mx-auto md:px-20 py-10 sml:p-5">
+    <section className="container mx-auto md:px-20 py-10 sml:p-1">
       <h1 className="font-bold text-4xl py-12 text-center">Mais recente</h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
@@ -41,20 +41,21 @@ const latestPost = () => {
         </Link>
       </div>
       <div className="info flex justify-center flex-col py-4 sml:py-2"></div>
-      <div className="cat sml:pb-1">
-        <Link href={"/"}>
-          <span className="text-orange-600 hover:text-orange-800">
-            Criado em:
-          </span>
-        </Link>
-        <Link href={"/"}>
-          <span className="text-gray-800 hover:text-gray-600">
-            {" "}
-            Agosto, 28 2023
-          </span>
-        </Link>
-      </div>
+
       <div className="title">
+        <div className="cat sml:pb-1 sml:flex sml:justify-start sml:items-start">
+          <Link href={"/"}>
+            <span className="text-orange-600 hover:text-orange-800">
+              Criado em:
+            </span>
+          </Link>
+          <Link href={"/"}>
+            <span className="text-gray-800 hover:text-gray-600">
+              {" "}
+              Agosto, 28 2023
+            </span>
+          </Link>
+        </div>
         <Link href={"/"}>
           <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
             Navegando Pelos Caminhos da Inspiração e Sabedoria
@@ -67,7 +68,7 @@ const latestPost = () => {
           criatividade, autoconhecimento e crescimento espiritual.
         </p>
         <Author>
-          
+
         </Author>
       </div>
     </div>
