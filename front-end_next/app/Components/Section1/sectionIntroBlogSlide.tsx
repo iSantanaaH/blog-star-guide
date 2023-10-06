@@ -16,7 +16,7 @@ const section1 = () => {
   };
 
   return (
-    <section className="py-16 sm:bg-none sml:p-4">
+    <section className="py-16 sm:bg-none sml:p-4 sml639:p-4 sm639:p-4 md:p-4">
       <div className="container mx-auto md:px20">
         <h1 className="font-bold text-4xl py-10 text-center">
           Reflexão do dia
