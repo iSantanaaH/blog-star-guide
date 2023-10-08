@@ -10,7 +10,7 @@ const MostPopular = () => {
     <section className="container mx-auto md:px-20 py-16 sml:p-4 sml639:p-4 sm639:p-4 md:p-4">
       <h1 className="font-bold text-4xl py-12 text-center">Mais popular</h1>
 
-      <Swiper spaceBetween={50} slidesPerView={1}>
+      <Swiper spaceBetween={50} slidesPerView={2}>
         <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
         <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
         <SwiperSlide>{SlideListMostPopular()}</SwiperSlide>
