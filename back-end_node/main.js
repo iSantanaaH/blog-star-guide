@@ -16,7 +16,7 @@ const pool = new Pool({
   user: "postgres",
   password: "15784267309",
   database: "blogstarguidedb",
-  port: 5432,
+  port: 5433,
   max: 1,
 });
 
@@ -182,15 +182,42 @@ app.post("/createpost", async (req, res) => {
     let { titule, content } = req.body;
 
     const createNewPostQuery = `
-    INSERT INTO posts(titule, content, user_id) VALUES ($1, $2, $3)
+    INSERT INTO posts(titule, content, user_id, date_created) VALUES ($1, $2, $3, NOW()) RETURNING titule, content, date_created
     `;
 
-    const values = { titule, content, userId };
-    await pool.query(createNewPostQuery);
-    res.status(200).json({ mensagem: "Postagem criada com sucesso!" });
+    const values = [titule, content, userId];
+    const newPostResult = await pool.query(createNewPostQuery, values);
+
+    if (newPostResult.rows.length === 0) {
+      return res.status(400).json({ error: "Erro ao criar a postagem" });
+    }
+
+    const newPost = newPostResult.rows[0];
+    res
+      .status(200)
+      .json({ mensagem: "Postagem criada com sucesso!", post: newPost });
   } catch (error) {
     console.error("Erro ao criar a postagem", error.message);
     res.status(400).json({ error: "Erro ao criar a postagem" });
+  }
+});
+
+app.get("/latestpost", async (req, res) => {
+  try {
+    const latestPostQuery = `
+    SELECT * FROM posts ORDER BY date_created DESC LIMIT 1
+    `;
+    const latestPostResult = await pool.query(latestPostQuery);
+
+    if (latestPostResult.rows.length === 0) {
+      return res.status(400).json({ error: "Nenhum post encontrado" });
+    }
+
+    const latestPost = latestPostResult.rows[0];
+    res.status(200).json(latestPost);
+  } catch (error) {
+    console.error("Erro ao obter o último post", error.message);
+    res.status(400).json({ error: "Erro ao obter o post" });
   }
 });
 
