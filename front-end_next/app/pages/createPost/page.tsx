@@ -3,9 +3,18 @@ import Format from "@/layout/format";
 import axios from "axios";
 import { useRef, SyntheticEvent } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreatePost = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
+
+  function notifySucessCreatePost() {
+    toast("Postagem concluída!");
+  }
+
+  function notifyErrorCreatePost() {
+    toast.error("Erro ao fazer a postagem!");
+  }
 
   async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -18,28 +27,42 @@ const CreatePost = () => {
         formDataObject[key] = value;
       });
 
+      const cookies = document.cookie.split(";");
+      let token = null;
+
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("blogstarguide.token=")) {
+          token = cookie.substring("blogstarguide.token=".length, cookie.length);
+          break;
+        }        
+      }
+
+      if (!token) {
+        throw new Error("Token não encontrado nos cookies");
+      }
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
       const response = await axios.post(
         "http://localhost:3333/createpost",
         formDataObject,
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            // "Authorization": token,
           },
         }
       );
 
       if (response.status === 200) {
         formRef.current?.reset();
-
-        const notifySucessCreatePost = () => {
-          toast("Post criado com sucesso!");
-        };
-
         notifySucessCreatePost();
 
         console.log(response.data);
       }
     } catch (error: any) {
+      notifyErrorCreatePost();
       console.error("Alguns campos estão errados", error.message);
     }
   }
@@ -51,7 +74,12 @@ const CreatePost = () => {
           <ToastContainer />
         </div>
 
-        <form method="POST" onSubmit={handleSubmit} ref={formRef} className="bg-slate-200 rounded-2xl">
+        <form
+          method="POST"
+          onSubmit={handleSubmit}
+          ref={formRef}
+          className="bg-slate-200 rounded-2xl"
+        >
           <div className="flex justify-center py-10">
             <h1 className="font-bold text-4xl text-center pb-5">
               Criar Novo Post
