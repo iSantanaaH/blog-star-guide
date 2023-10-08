@@ -16,7 +16,7 @@ const pool = new Pool({
   user: "postgres",
   password: "15784267309",
   database: "blogstarguidedb",
-  port: 5433,
+  port: 5432,
   max: 1,
 });
 
@@ -153,15 +153,44 @@ app.post("/login", async (req, res) => {
 
 app.post("/createpost", async (req, res) => {
   try {
+    const token = req.headers.authorization;
+    console.log(token);
+
+    if (!token) {
+      return res.status(401).json({ error: "Usuário não autenticado" });
+    }
+    const decodedToken = jwt.verify(token, secretKey);
+    const userId = decodedToken.userId;
+    const checkUserPermissionQuery =
+      "SELECT user_permission_id FROM users WHERE id = $1";
+    const permissionResult = await pool.query(checkUserPermissionQuery, [
+      userId,
+    ]);
+
+    if (permissionResult.rows.length === 0) {
+      return res.status(401).json({ error: "Usuário não encontrado" });
+    }
+
+    const userPermissionId = permissionResult.rows[0].user_permission_id;
+
+    if (userPermissionId !== 1) {
+      return res
+        .status(403)
+        .json({ error: "Usuário não tem permissão para criar um post" });
+    }
+
     let { titule, content } = req.body;
 
-    const values = { titule, content };
-    res.status(200).json({ values });
-    console.log(values);
+    const createNewPostQuery = `
+    INSERT INTO posts(titule, content, user_id) VALUES ($1, $2, $3)
+    `;
+
+    const values = { titule, content, userId };
+    await pool.query(createNewPostQuery);
+    res.status(200).json({ mensagem: "Postagem criada com sucesso!" });
   } catch (error) {
-    console.error("Erro ao criar o post", error.message);
-    res.status(400);
-    json({ error: "Erro ao criar o post" });
+    console.error("Erro ao criar a postagem", error.message);
+    res.status(400).json({ error: "Erro ao criar a postagem" });
   }
 });
 
