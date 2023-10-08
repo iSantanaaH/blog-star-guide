@@ -1,14 +1,50 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Author from "../Child/author";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const SectionPosts = () => {
+interface Post {
+  id: number;
+  imageUrl: string;
+  createdAt: string;
+  title: string;
+  content: string;
+  author: string;
+}
+
+interface SectionPostProps {
+  posts: Post[];
+}
+
+const SectionPosts = ({posts}: SectionPostProps) => {
+  const [latestPostState, setLatestPostState] = useState<Post | null>(null);
+
+  useEffect(() => {
+    const fetchLatestPost = async () => {
+      try {
+        const response = await axios.get("http://localhost:3334/latestpost");
+        if (response.status === 200) {
+          setLatestPostState(response.data);
+        }
+      } catch (error: any) {
+        console.error("Erro ao obter o último post", error.message);
+      }
+    }
+    fetchLatestPost();
+  }, []);
+
   return (
     <section className="container mx-auto md:px-20 py-10 sml:p-4 sml639:p-4 sm639:p-4 md:p-4">
       <h1 className="font-bold text-4xl py-12 text-center">Mais recente</h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
+        {latestPostState && (
+          <LatestPost post={latestPostState} />
+        )}
+        {/* {latestPost()}
         {latestPost()}
         {latestPost()}
         {latestPost()}
@@ -16,8 +52,7 @@ const SectionPosts = () => {
         {latestPost()}
         {latestPost()}
         {latestPost()}
-        {latestPost()}
-        {latestPost()}
+        {latestPost()} */}
       </div>
     </section>
   );
@@ -25,9 +60,9 @@ const SectionPosts = () => {
 
 export default SectionPosts;
 
-const latestPost = () => {
+const LatestPost = ({post}: {post: Post}) => {
   return (
-    <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
+    <div id={post.id.toString()} className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
       <div className="images">
         <Link href={"/"}>
           <Image
@@ -51,20 +86,23 @@ const latestPost = () => {
           <Link href={"/"}>
             <span className="text-gray-800 hover:text-gray-600">
               {" "}
-              Agosto, 28 2023
+              {/* Agosto, 28 2023 */}
+              {post.createdAt}
             </span>
           </Link>
         </div>
         <Link href={"/"}>
           <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
-            Navegando Pelos Caminhos da Inspiração e Sabedoria
+            {/* Navegando Pelos Caminhos da Inspiração e Sabedoria */}
+            {post.title}
           </p>
         </Link>
         <p className="text-gray-500 py-3">
-          Aqui, mergulhamos nos mistérios celestiais da inspiração e da
+          {/* Aqui, mergulhamos nos mistérios celestiais da inspiração e da
           sabedoria, trazendo-lhe histórias cativantes e reflexões profundas.
           Acompanhe-nos enquanto navegamos pelos intricados caminhos da
-          criatividade, autoconhecimento e crescimento espiritual.
+          criatividade, autoconhecimento e crescimento espiritual. */}
+          {post.content}
         </p>
         <Author>
 
