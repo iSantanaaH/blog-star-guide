@@ -205,7 +205,7 @@ app.post("/createpost", async (req, res) => {
 app.get("/latestpost", async (req, res) => {
   try {
     const latestPostQuery = `
-    SELECT * FROM posts ORDER BY date_created DESC LIMIT 1
+    SELECT * FROM posts ORDER BY date_created DESC
     `;
     const latestPostResult = await pool.query(latestPostQuery);
 
@@ -213,7 +213,7 @@ app.get("/latestpost", async (req, res) => {
       return res.status(400).json({ error: "Nenhum post encontrado" });
     }
 
-    const latestPost = latestPostResult.rows[0];
+    const latestPost = latestPostResult.rows;
     res.status(200).json(latestPost);
   } catch (error) {
     console.error("Erro ao obter o último post", error.message);
