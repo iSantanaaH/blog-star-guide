@@ -44,16 +44,6 @@ const SectionPosts = () => {
             <LatestPost post={post} />
           </div>
         ))}
-
-        {/* {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()}
-        {latestPost()} */}
       </div>
     </section>
   );
@@ -62,6 +52,13 @@ const SectionPosts = () => {
 export default SectionPosts;
 
 const LatestPost = ({ post }: { post: Post }) => {
+  const date = new Date(post.date_created);
+  const formattedDate = date.toLocaleDateString("pt-BR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
       <div className="images">
@@ -86,25 +83,16 @@ const LatestPost = ({ post }: { post: Post }) => {
           </Link>
           <Link href={"/"}>
             <span className="text-gray-800 hover:text-gray-600">
-              {" "}
-              {/* Agosto, 28 2023 */}
-              {post.date_created}
+              {formattedDate}
             </span>
           </Link>
         </div>
         <Link href={"/"}>
           <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
-            {/* Navegando Pelos Caminhos da Inspiração e Sabedoria */}
             {post.titule}
           </p>
         </Link>
-        <p className="text-gray-500 py-3">
-          {/* Aqui, mergulhamos nos mistérios celestiais da inspiração e da
-          sabedoria, trazendo-lhe histórias cativantes e reflexões profundas.
-          Acompanhe-nos enquanto navegamos pelos intricados caminhos da
-          criatividade, autoconhecimento e crescimento espiritual. */}
-          {post.content}
-        </p>
+        <p className="text-gray-500 py-3">{post.content}</p>
         <Author>
 
         </Author>
