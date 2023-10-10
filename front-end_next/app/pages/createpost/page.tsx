@@ -1,7 +1,7 @@
 "use client";
 import Format from "@/layout/format";
 import axios from "axios";
-import { useRef, SyntheticEvent } from "react";
+import { useRef, SyntheticEvent,} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -48,7 +48,7 @@ const CreatePost = () => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       const response = await axios.post(
-        "http://localhost:3334/createpost",
+        "http://localhost:3333/createpost",
         formDataObject,
         {
           headers: {
