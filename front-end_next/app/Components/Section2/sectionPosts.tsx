@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,31 +8,29 @@ import axios from "axios";
 
 interface Post {
   id: number;
-  imageUrl: string;
-  createdAt: string;
-  title: string;
+  titule: string;
   content: string;
-  author: string;
+  date_created: string;
+  data_change: string;
+  comments: string;
+  user_id: string;
 }
 
-interface SectionPostProps {
-  posts: Post[];
-}
-
-const SectionPosts = ({posts}: SectionPostProps) => {
-  const [latestPostState, setLatestPostState] = useState<Post | null>(null);
+const SectionPosts = () => {
+  const [latestPostState, setLatestPostState] = useState<Post[]>([]);
 
   useEffect(() => {
     const fetchLatestPost = async () => {
       try {
-        const response = await axios.get("http://localhost:3334/latestpost");
+        const response = await axios.get("http://localhost:3333/latestpost");
         if (response.status === 200) {
-          setLatestPostState(response.data);
+          const responseData = response.data;
+          setLatestPostState(responseData);
         }
       } catch (error: any) {
         console.error("Erro ao obter o último post", error.message);
       }
-    }
+    };
     fetchLatestPost();
   }, []);
 
@@ -41,9 +39,12 @@ const SectionPosts = ({posts}: SectionPostProps) => {
       <h1 className="font-bold text-4xl py-12 text-center">Mais recente</h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
-        {latestPostState && (
-          <LatestPost post={latestPostState} />
-        )}
+        {latestPostState.map((post) => (
+          <div key={post.id}>
+            <LatestPost post={post} />
+          </div>
+        ))}
+
         {/* {latestPost()}
         {latestPost()}
         {latestPost()}
@@ -60,9 +61,9 @@ const SectionPosts = ({posts}: SectionPostProps) => {
 
 export default SectionPosts;
 
-const LatestPost = ({post}: {post: Post}) => {
+const LatestPost = ({ post }: { post: Post }) => {
   return (
-    <div id={post.id.toString()} className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
+    <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
       <div className="images">
         <Link href={"/"}>
           <Image
@@ -87,14 +88,14 @@ const LatestPost = ({post}: {post: Post}) => {
             <span className="text-gray-800 hover:text-gray-600">
               {" "}
               {/* Agosto, 28 2023 */}
-              {post.createdAt}
+              {post.date_created}
             </span>
           </Link>
         </div>
         <Link href={"/"}>
           <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
             {/* Navegando Pelos Caminhos da Inspiração e Sabedoria */}
-            {post.title}
+            {post.titule}
           </p>
         </Link>
         <p className="text-gray-500 py-3">
