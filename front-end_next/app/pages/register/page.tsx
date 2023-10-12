@@ -139,7 +139,7 @@ function FormUserRegisterAccount() {
         notifyErrorCreateUser();
       }
     } catch (error: any) {
-      console.error("Erro do catch:", error.erro);
+      console.error("Erro do catch:", error.message);
     } finally {
       setIsLoading(false);
     }
