@@ -2,11 +2,13 @@ require("dotenv").config();
 
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { Pool } = require("pg");
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
 const secretKey = process.env.JWT_SECRET;
+
+/* Router */
+const routerRegister = require("./src/router/register/register");
 
 /* Database */
 const pool = require("./src/config/database/database");
@@ -97,31 +99,7 @@ const checkTableUserPermission = `
   }
 })();
 
-app.post("/register", async (req, res) => {
-  try {
-    let { name, surname, email, phone, password, birthday } = req.body;
-
-    const checkUserEmailQuery = "SELECT * FROM users WHERE email = $1";
-    const checkUserEmailResult = await pool.query(checkUserEmailQuery, [email]);
-
-    if (checkUserEmailResult.rows.length > 0) {
-      return res.status(400).json({ error: "Este email já está cadastrado." });
-    }
-
-    const insertUserQuery = `
-    INSERT INTO users (name, surname, email, phone, password, birthday) VALUES ($1, $2, $3, $4, $5, $6)
-    `;
-
-    const values = [name, surname, email, phone, password, birthday];
-
-    await pool.query(insertUserQuery, values);
-
-    res.status(200).json({ mensagem: "Usuario cadastrado com sucesso!" });
-  } catch (error) {
-    console.error("Erro ao registrar usuário:", error.message);
-    res.status(400).json({ error: "Erro ao cadastrar usuário" });
-  }
-});
+app.use("/register", routerRegister);
 
 app.post("/login", async (req, res) => {
   try {
