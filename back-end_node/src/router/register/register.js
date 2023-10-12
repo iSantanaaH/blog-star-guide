@@ -4,7 +4,7 @@ const router = express.Router();
 /* Database */
 const pool = require("../../config/database/database");
 
-router.post("/register", async (req, res) => {
+router.post("", async (req, res) => {
   try {
     let { name, surname, email, password, phone, birthday } = req.body;
 
@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
     }
 
     const insertUserQuery = `
-        INSER INTO users (name, surname, email, password, phone, birthday) VALUES ($1, $2, $3, $4, $5, $6);
+        INSERT INTO users (name, surname, email, password, phone, birthday) VALUES ($1, $2, $3, $4, $5, $6);
         `;
 
     const values = [name, surname, email, password, phone, birthday];
@@ -24,7 +24,9 @@ router.post("/register", async (req, res) => {
 
     res.status(200).json({ mensagem: "Usuário cadastrado com sucesso" });
   } catch (error) {
-    console.error("Erro ao registrar usuário", error.menssage);
+    console.error("Erro ao registrar usuário", error.message);
     res.status(400).json({ erro: "Erro ao cadastrar o usuário" });
   }
 });
+
+module.exports = router;
