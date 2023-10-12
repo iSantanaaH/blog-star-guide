@@ -1,4 +1,4 @@
-const pool = require("../../config/database/database");
+const pool = require("../../database/database");
 
 const checkTableUsersQuery = `
   SELECT EXISTS (
@@ -35,6 +35,6 @@ async function setupUserTable() {
   } finally {
     client.release();
   }
-};
+}
 
 module.exports = setupUserTable;
