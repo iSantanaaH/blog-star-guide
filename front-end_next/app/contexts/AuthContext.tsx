@@ -24,7 +24,6 @@ type AuthContextType = {
   isAuthenticated: boolean;
   user: UserProps | null;
   signIn: (data: SignInData) => Promise<void>;
-  testeProvider: () => void;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -32,10 +31,6 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<UserProps | null>(null);
-
-  function testeProvider() {
-    alert("Funcionando!");
-  };
 
   useEffect(() => {
     const { "blogstarguide.token": token } = parseCookies();
@@ -62,14 +57,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsAuthenticated(true);
 
       Router.push("/");
-    } catch (error) {
-      console.error("Erro ao fazer login", error);
+    } catch (error: any) {
+      console.error("Erro ao fazer login", error.message);
       setIsAuthenticated(false);
     }
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, signIn, testeProvider }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, signIn }}>
       {children}
     </AuthContext.Provider>
   );
