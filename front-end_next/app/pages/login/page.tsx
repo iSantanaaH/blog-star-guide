@@ -58,6 +58,7 @@ function FormLoginUser() {
 
         setCookie(undefined, "blogstarguide.token", token, {
           maxAge: 60 * 60 * 1, // 1 hour
+          path: "/",
         });
 
         const notifySucessLoginUserAccount = () =>
@@ -65,11 +66,10 @@ function FormLoginUser() {
 
         notifySucessLoginUserAccount();
 
+        refFormLogin.current?.reset();
         setTimeout(() => {
           window.location.href = "/";
-        }, 3000);
-
-        refFormLogin.current?.reset();
+        }, 2000);
       }
     } catch (error: any) {
       console.error("Email ou senha invalidos2", error.message);
