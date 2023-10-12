@@ -9,7 +9,7 @@ const secretKey = process.env.JWT_SECRET;
 
 /* Router */
 const routerRegister = require("./src/router/register/register");
-
+const routerLogin = require("./src/router/login/login");
 /* Database */
 const pool = require("./src/config/database/database");
 
@@ -100,39 +100,17 @@ const checkTableUserPermission = `
 })();
 
 app.use("/register", routerRegister);
+app.use("/login", routerLogin);
 
-app.post("/login", async (req, res) => {
-  try {
-    let { email, password } = req.body;
-
-    const values = { email, password };
-    console.log(values);
-
-    const userQuery = "SELECT * FROM users WHERE email = $1 AND password = $2";
-    const userResult = await pool.query(userQuery, [email, password]);
-
-    if (userResult.rows.length === 0) {
-      return res.status(401).json({ error: "Email ou senha inválidos" });
-    }
-
-    const user = userResult.rows[0];
-    const token = jwt.sign({ userId: user.id, email: user.email }, secretKey);
-    const userName = user.name + " " + user.surname;
-
-    res.status(200).json({ token, userName });
-  } catch (error) {
-    console.error("Falha ao fazer login", error.message);
-    res.status(400).json({ error: "Dados inválidos" });
-  }
-});
-
-app.post("/createpost", authenticationMiddleware ,async (req, res) => {
+app.post("/createpost", authenticationMiddleware, async (req, res) => {
   try {
     const token = req.headers.authorization;
     console.log(token);
 
     if (!token) {
-      return res.status(401).json({ error: "Usuário não tem permissão para criar um post" });
+      return res
+        .status(401)
+        .json({ error: "Usuário não tem permissão para criar um post" });
     }
     const decodedToken = jwt.verify(token, secretKey);
     const userId = decodedToken.userId;
