@@ -8,17 +8,14 @@ const app = express();
 const PORT = process.env.PORT;
 const secretKey = process.env.JWT_SECRET;
 
+/* Database */
+const pool = require("./src/config/database/database");
+
+/* Middleware */
+const authenticationMiddleware = require("./src/config/middleware/authenticationMiddleware");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
-
-const pool = new Pool({
-  host: "localhost",
-  user: "postgres",
-  password: "15784267309",
-  database: "blogstarguidedb",
-  port: 5433,
-  max: 1,
-});
 
 const checkTableUsersQuery = `
   SELECT EXISTS (
@@ -151,13 +148,13 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/createpost", async (req, res) => {
+app.post("/createpost", authenticationMiddleware ,async (req, res) => {
   try {
     const token = req.headers.authorization;
     console.log(token);
 
     if (!token) {
-      return res.status(401).json({ error: "Usuário não autenticado" });
+      return res.status(401).json({ error: "Usuário não tem permissão para criar um post" });
     }
     const decodedToken = jwt.verify(token, secretKey);
     const userId = decodedToken.userId;
