@@ -10,6 +10,8 @@ const secretKey = process.env.JWT_SECRET;
 /* Router */
 const routerRegister = require("./src/router/register/register");
 const routerLogin = require("./src/router/login/login");
+const routerLatestPost = require("./src/router/latestPost/latestPost");
+
 /* Database */
 const pool = require("./src/config/database/database");
 
@@ -101,6 +103,7 @@ const checkTableUserPermission = `
 
 app.use("/register", routerRegister);
 app.use("/login", routerLogin);
+app.use("/latestpost", routerLatestPost);
 
 app.post("/createpost", authenticationMiddleware, async (req, res) => {
   try {
@@ -152,25 +155,6 @@ app.post("/createpost", authenticationMiddleware, async (req, res) => {
   } catch (error) {
     console.error("Erro ao criar a postagem", error.message);
     res.status(400).json({ error: "Erro ao criar a postagem" });
-  }
-});
-
-app.get("/latestpost", async (req, res) => {
-  try {
-    const latestPostQuery = `
-    SELECT * FROM posts ORDER BY date_created DESC
-    `;
-    const latestPostResult = await pool.query(latestPostQuery);
-
-    if (latestPostResult.rows.length === 0) {
-      return res.status(400).json({ error: "Nenhum post encontrado" });
-    }
-
-    const latestPost = latestPostResult.rows;
-    res.status(200).json(latestPost);
-  } catch (error) {
-    console.error("Erro ao obter o último post", error.message);
-    res.status(400).json({ error: "Erro ao obter o post" });
   }
 });
 
