@@ -28,21 +28,34 @@ function FormUserRegisterAccount() {
     event: React.ChangeEvent<HTMLInputElement>
   ) {
     const newValue = event.target.value;
-
-    const capitalizedValue =
-      newValue.charAt(0).toUpperCase() + newValue.slice(1);
-
+  
+    const capitalizedValue = newValue
+      .split(" ") // Divide o nome em partes usando o espaço como separador
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1)) // Capitaliza a primeira letra de cada parte
+      .join(" "); // Junta as partes novamente com espaços
+  
     setfirstLetterUppercaseName(capitalizedValue);
   }
+  
 
   function changefirstLetterUppercaseSurname(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
     const newValue = event.target.value;
-
-    const capitalizedValue =
-      newValue.charAt(0).toUpperCase() + newValue.slice(1);
-
+  
+    const wordsToExclude = new Set(["das", "da", "do", "dos", "de", "des", "di", "dis", "dus", "du"]);
+  
+    const parts = newValue.split(" ");
+    const capitalizedParts = parts.map((part, index) => {
+      if (index === 0 || !wordsToExclude.has(part.toLowerCase())) {
+        return part.charAt(0).toUpperCase() + part.slice(1);
+      } else {
+        return part;
+      }
+    });
+  
+    const capitalizedValue = capitalizedParts.join(" ");
+  
     setfirstLetterUppercaseSurname(capitalizedValue);
   }
 
@@ -284,6 +297,8 @@ function FormUserRegisterAccount() {
                 type="date"
                 name="birthday"
                 required
+                max={"9999-12-31"}
+                min={"1000-01-01"}
               />
             </div>
           </div>
