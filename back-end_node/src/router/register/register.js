@@ -4,9 +4,15 @@ const router = express.Router();
 /* Database */
 const pool = require("../../config/database/database");
 
+function removeSpecialCharacters(value) {
+  return value.replace(/\D/g, "");
+}
+
 router.post("", async (req, res) => {
   try {
     let { name, surname, email, password, phone, birthday } = req.body;
+
+    phone = removeSpecialCharacters(phone);
 
     const checkUserEmailQuery = `SELECT * FROM users WHERE email = $1`;
     const checkUserEmailResult = await pool.query(checkUserEmailQuery, [email]);
