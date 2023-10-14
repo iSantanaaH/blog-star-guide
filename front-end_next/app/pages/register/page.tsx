@@ -50,14 +50,12 @@ function FormUserRegisterAccount() {
     return value.replace(/\D/g, "");
   }
 
-  function changeInputPhone(event: React.ChangeEvent<HTMLInputElement>) {
-    const newPhone = removeSpecialCharacters(event.target.value);
-    setPhone(newPhone);
-  }
-
   async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
+    const inputPhoneValue = (event.currentTarget as HTMLFormElement)["phone"].value;
+    const formatPhone = removeSpecialCharacters(inputPhoneValue);
+    setPhone(formatPhone);
     const nameValue = firstLetterUppercaseName.trim();
     const surnameValue = firstLetterUppercaseSurname.trim();
     const phoneValue = phone.trim();
@@ -126,8 +124,6 @@ function FormUserRegisterAccount() {
         }
       );
 
-      console.log(response.status);
-
       if (response.status === 200) {
         formRef.current?.reset();
         notifySuccesCreateUser();
@@ -144,6 +140,38 @@ function FormUserRegisterAccount() {
       setIsLoading(false);
     }
   }
+
+  const formatPhoneNumber = (value: string) => {
+    const cleanedValue = value.replace(/\D/g, "");
+
+    let formattedValue = "";
+    if (cleanedValue.length >= 2) {
+      formattedValue = `(${cleanedValue.slice(0, 2)}`;
+      if (cleanedValue.length >= 7) {
+        formattedValue += `) ${cleanedValue.slice(2, 7)}`;
+        if (cleanedValue.length >= 11) {
+          formattedValue += `-${cleanedValue.slice(7, 11)}`;
+        } else {
+          formattedValue += `-${cleanedValue.slice(7)}`;
+        }
+      } else {
+        formattedValue += `) ${cleanedValue.slice(2)}`;
+      }
+    } else {
+      formattedValue = cleanedValue;
+    }
+
+    setPhone(formattedValue);
+  };
+
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPhone = event.target.value;
+    const cleanedPhone = newPhone.replace(/\D/g, ''); 
+    formatPhoneNumber(cleanedPhone);
+
+    event.target.maxLength = 15;
+  };
+
 
   return (
     <Format>
@@ -210,7 +238,7 @@ function FormUserRegisterAccount() {
                 placeholder="(99)99999-9999"
                 name="phone"
                 value={phone}
-                onChange={changeInputPhone}
+                onChange={handlePhoneChange}
                 minLength={11}
                 maxLength={11}
                 required
