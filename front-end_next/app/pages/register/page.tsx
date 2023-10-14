@@ -3,7 +3,7 @@
 import Format from "@/layout/format";
 import axios from "axios";
 import Link from "next/link";
-import React, { useState, SyntheticEvent, useRef } from "react";
+import React, { useState, SyntheticEvent, useRef, use } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -14,7 +14,15 @@ function FormUserRegisterAccount() {
   const [firstLetterUppercaseSurname, setfirstLetterUppercaseSurname] =
     useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const formRef = useRef<HTMLFormElement | null>(null);
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  function handleChangeRegexEmail(event: React.ChangeEvent<HTMLInputElement>) {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+  }
 
   function changefirstLetterUppercaseName(
     event: React.ChangeEvent<HTMLInputElement>
@@ -53,7 +61,8 @@ function FormUserRegisterAccount() {
   async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
-    const inputPhoneValue = (event.currentTarget as HTMLFormElement)["phone"].value;
+    const inputPhoneValue = (event.currentTarget as HTMLFormElement)["phone"]
+      .value;
     const formatPhone = removeSpecialCharacters(inputPhoneValue);
     setPhone(formatPhone);
     const nameValue = firstLetterUppercaseName.trim();
@@ -104,6 +113,11 @@ function FormUserRegisterAccount() {
       return;
     }
 
+    if (!emailRegex.test(emailValue)) {
+      toast.error("Por favor, insira um email válido.");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -126,6 +140,10 @@ function FormUserRegisterAccount() {
 
       if (response.status === 200) {
         formRef.current?.reset();
+        setfirstLetterUppercaseName("");
+        setfirstLetterUppercaseSurname("");
+        setPhone("");
+        setEmail("");
         notifySuccesCreateUser();
 
         setTimeout(() => {
@@ -166,12 +184,11 @@ function FormUserRegisterAccount() {
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPhone = event.target.value;
-    const cleanedPhone = newPhone.replace(/\D/g, ''); 
+    const cleanedPhone = newPhone.replace(/\D/g, "");
     formatPhoneNumber(cleanedPhone);
 
     event.target.maxLength = 15;
   };
-
 
   return (
     <Format>
@@ -224,10 +241,12 @@ function FormUserRegisterAccount() {
               <input
                 className="input-forms"
                 type="email"
-                placeholder="email"
+                placeholder="example@gmail.com"
                 name="email"
+                value={email}
                 required
                 minLength={10}
+                onChange={handleChangeRegexEmail}
               />
             </div>
             <div className="mb-3 sm:px-8" id="controlPhone">
