@@ -12,6 +12,16 @@ router.post("", async (req, res) => {
   try {
     let { name, surname, email, password, phone, birthday } = req.body;
 
+    const formData = req.body;
+    const birthdayValue = new Date(formData.birthday);
+    const currentDate = new Date();
+    const minAge = 5;
+    const age = currentDate.getFullYear() - birthdayValue.getFullYear();
+
+    if (age < minAge) {
+      res.status(400).json({ error: "Você deve ter pelo menos 5 anos de idade para criar uma conta" });
+    }
+
     phone = removeSpecialCharacters(phone);
 
     const checkUserEmailQuery = `SELECT * FROM users WHERE email = $1`;
