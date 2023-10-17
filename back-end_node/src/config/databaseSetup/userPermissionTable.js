@@ -24,6 +24,17 @@ async function setupTableUserPermission() {
               `;
       await client.query(createTableUserPermissionQuery);
     }
+
+    if (tableUserPermission) {
+      const createIdPermission = `
+        INSERT INTO user_permission (id)
+        SELECT 1 WHERE NOT EXISTS (SELECT 1 FROM user_permission WHERE id = 1)
+        UNION
+        SELECT 2 WHERE NOT EXISTS (SELECT 1 FROM user_permission WHERE id = 2)
+      `;
+
+      await client.query(createIdPermission);
+    }
   } catch (error) {
     console.error("Erro ao criar a tabela user_permission", error.message);
   } finally {
