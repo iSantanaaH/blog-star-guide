@@ -1,12 +1,52 @@
 "use client";
 import Format from "@/layout/format";
 import axios from "axios";
-import { useRef, SyntheticEvent,} from "react";
+import { useRef, SyntheticEvent, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const CreatePost = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    async function verifyUserPermission() {
+      try {
+        const cookies = document.cookie.split(";");
+        let token = null;
+
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.startsWith("blogstarguide.token=")) {
+            token = cookie.substring(
+              "blogstarguide.token=".length,
+              cookie.length
+            );
+            break;
+          }
+        }
+
+        if (!token) {
+          toast.error("Você não está autenticado");
+          window.location.href = "/";
+        } else {
+          const response = await axios.get("http://localhost:3333/userinfo");
+          console.log(response.status);
+
+          if (response.status === 200) {
+            console.log("teste");
+          } else if (response.status === 403) {
+            toast.error("Você não tem permissão para criar uma postagem");
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 1200);
+          }
+        }
+      } catch (error) {}
+    }
+
+    verifyUserPermission();
+  }, []);
 
   function notifySucessCreatePost() {
     toast("Postagem concluída!");
