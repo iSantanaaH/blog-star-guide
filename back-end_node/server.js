@@ -15,6 +15,8 @@ const routerCreatePost = require("./src/router/createPost");
 const userTableSetup = require("./src/config/databaseSetup/userTableSetup");
 const postsTableSetup = require("./src/config/databaseSetup/postTable");
 const userPermission = require("./src/config/databaseSetup/userPermissionTable");
+const setupTableImages = require("./src/config/databaseSetup/images");
+const setupTablePostImagesRelations = require("./src/config/databaseSetup/post_images_relation");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
@@ -23,6 +25,8 @@ app.use(cors({ origin: "http://localhost:3000" }));
   await userPermission();
   await userTableSetup();
   await postsTableSetup();
+  await setupTableImages();
+  await setupTablePostImagesRelations();
 })();
 
 app.use("/register", routerRegister);
