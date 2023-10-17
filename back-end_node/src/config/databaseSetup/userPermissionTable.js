@@ -25,7 +25,7 @@ async function setupTableUserPermission() {
       await client.query(createTableUserPermissionQuery);
     }
   } catch (error) {
-    console.error("Erro ao criar a tabela user_permission");
+    console.error("Erro ao criar a tabela user_permission", error.message);
   } finally {
     client.release();
   }

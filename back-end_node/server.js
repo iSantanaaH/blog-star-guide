@@ -20,9 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
 
 (async () => {
+  await userPermission();
   await userTableSetup();
   await postsTableSetup();
-  await userPermission();
 })();
 
 app.use("/register", routerRegister);

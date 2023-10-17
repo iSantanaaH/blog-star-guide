@@ -8,22 +8,12 @@ const checkTableUsersQuery = `
   )
 `;
 
-const checkTableUserPermission = `
-  SELECT EXISTS (
-    SELECT 1
-    FROM information_schema.tables
-    WHERE table_name = 'user_permission'
-  )
-`;
-
 async function setupUserTable() {
   const client = await pool.connect();
   try {
     const resultUserQuery = await client.query(checkTableUsersQuery);
-    const resultUserPermissionQuery = await client.query(checkTableUserPermission);
 
     const tableUserExists = resultUserQuery.rows[0].exists;
-    const tableUserPermissionExists = resultUserPermissionQuery.rows[0].exists;
 
     if (!tableUserExists) {
       const createTableUserQuery = `
@@ -34,18 +24,11 @@ async function setupUserTable() {
           email VARCHAR(255) NOT NULL,
           phone VARCHAR(20) NOT NULL,
           password VARCHAR(255) NOT NULL,
-          birthday TIMESTAMP NOT NULL
+          birthday TIMESTAMP NOT NULL,
+          user_permission_id INT NOT NULL REFERENCES user_permission(id)
         )
       `;
       await client.query(createTableUserQuery);
-    }
-
-    if (tableUserPermissionExists) {
-      const createRelationWithTableUserPermission = `
-      ALTER TABLE users ADD COLUMN user_permission_id INT NOT NULL REFERENCES user_permission(id);
-      `;
-
-      await client.query(createRelationWithTableUserPermission);
     }
   } catch (error) {
     console.error("Erro ao criar tabela de usuários", error.message);
