@@ -19,7 +19,7 @@ const HeaderComponent = () => {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(clickedElement) &&
-        !clickedElement.classList.contains("dropdown-link") // Verifica a classe do elemento clicado
+        !clickedElement.classList.contains("dropdown-link")
       ) {
         setDropdown(false);
       }
