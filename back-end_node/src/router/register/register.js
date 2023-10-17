@@ -32,7 +32,7 @@ router.post("", async (req, res) => {
     }
 
     const insertUserQuery = `
-        INSERT INTO users (name, surname, email, password, phone, birthday) VALUES ($1, $2, $3, $4, $5, $6);
+        INSERT INTO users (name, surname, email, password, phone, birthday, user_permission_id) VALUES ($1, $2, $3, $4, $5, $6, 2);
         `;
 
     const values = [name, surname, email, password, phone, birthday];
