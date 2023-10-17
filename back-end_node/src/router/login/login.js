@@ -14,7 +14,7 @@ router.post("", async (req, res) => {
     const userResult = await pool.query(userQuery, [email, password]);
 
     if (userResult.rows.length === 0) {
-      return res.status(401).json({ error: "Email ou senha inválidos" });
+      return res.status(401).json({ error: "O usuário não existe" });
     }
 
     const user = userResult.rows[0];
@@ -24,7 +24,7 @@ router.post("", async (req, res) => {
     res.status(200).json({ token, userName });
   } catch (error) {
     console.error("Falha ao fazer login", error.message);
-    res.status(400).json({ error: "Dados inválidos" });
+    res.status(400).json({ error: error.message });
   }
 });
 
