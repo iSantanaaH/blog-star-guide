@@ -8,6 +8,10 @@ import { setCookie } from "nookies";
 import { SyntheticEvent, useContext, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 
+function notifyErrorLogin(message: string) {
+  toast.error(`Erro: ${message}`)
+};
+
 function FormLoginUser() {
   const refFormLogin = useRef<HTMLFormElement | null>(null);
   const { signIn } = useContext(AuthContext);
@@ -72,6 +76,12 @@ function FormLoginUser() {
         }, 2000);
       }
     } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        if (error.response.data && error.response.data.error) {
+          const errroMessage = error.response.data.error;
+          notifyErrorLogin(errroMessage);
+        }
+      }
       console.error("Email ou senha invalidos2", error.message);
     }
   }
