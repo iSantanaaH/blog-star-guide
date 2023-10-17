@@ -4,7 +4,7 @@ const router = express.Router();
 const secretKey = process.env.JWT_SECRET;
 
 /* Database */
-const pool = require("../../config/database/database");
+const pool = require("../config/database/database");
 
 router.post("", async (req, res) => {
   try {

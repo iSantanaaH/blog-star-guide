@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 /* Database */
-const pool = require("../../config/database/database");
+const pool = require("../config/database/database");
 
 function removeSpecialCharacters(value) {
   return value.replace(/\D/g, "");

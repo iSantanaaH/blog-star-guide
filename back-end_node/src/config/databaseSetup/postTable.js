@@ -1,4 +1,4 @@
-const pool = require("../../database/database");
+const pool = require("../database/database");
 
 const checkTablePostsQuery = `
   SELECT EXISTS (

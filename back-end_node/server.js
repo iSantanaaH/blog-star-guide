@@ -6,16 +6,15 @@ const app = express();
 const PORT = process.env.PORT;
 
 /* Router */
-const routerRegister = require("./src/router/register/register");
-const routerLogin = require("./src/router/login/login");
-const routerLatestPost = require("./src/router/latestPost/latestPost");
-const routerCreatePost = require("./src/router/createPost/createPost");
+const routerRegister = require("./src/router/register");
+const routerLogin = require("./src/router/login");
+const routerLatestPost = require("./src/router/latestPost");
+const routerCreatePost = require("./src/router/createPost");
 
 /* Setup Database */
-const userTableSetup = require("./src/config/databaseSetup/userTable/userTableSetup");
-const postsTableSetup = require("./src/config/databaseSetup/postsTable/postTable");
-const userPermission = require("./src/config/databaseSetup/userPermissionTable/userPermissionTable");
-
+const userTableSetup = require("./src/config/databaseSetup/userTableSetup");
+const postsTableSetup = require("./src/config/databaseSetup/postTable");
+const userPermission = require("./src/config/databaseSetup/userPermissionTable");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
