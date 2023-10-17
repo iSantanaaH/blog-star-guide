@@ -16,8 +16,6 @@ const userTableSetup = require("./src/config/databaseSetup/userTable/userTableSe
 const postsTableSetup = require("./src/config/databaseSetup/postsTable/postTable");
 const userPermission = require("./src/config/databaseSetup/userPermissionTable/userPermissionTable");
 
-/* Middleware */
-const authenticationMiddleware = require("./src/config/middleware/authentication/authenticationMiddleware");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
