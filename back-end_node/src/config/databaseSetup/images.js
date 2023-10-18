@@ -18,7 +18,7 @@ async function setupImagesTable() {
     if (!tableImagesExists) {
       const createTableImages = `
       CREATE TABLE IF NOT EXISTS "images" (
-          id SERIAL PRIMATY KEY,
+          id SERIAL PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
           image_path TEXT NOT NULL
       )
