@@ -8,12 +8,20 @@ const checkTableUserPermission = `
   )
 `;
 
+const checkIdsUserPermission = `
+  SELECT id
+  FROM user_permission
+  WHERE id IN (1, 2)
+`;
+
 async function setupTableUserPermission() {
   const client = await pool.connect();
   try {
     const resultUserPermissionQuery = await client.query(
       checkTableUserPermission
     );
+    const resultIdsUserPermission = await client.query(checkIdsUserPermission);
+
     const tableUserPermission = resultUserPermissionQuery.rows[0].exists;
 
     if (!tableUserPermission) {
@@ -25,15 +33,14 @@ async function setupTableUserPermission() {
       await client.query(createTableUserPermissionQuery);
     }
 
-    if (tableUserPermission) {
-      const createIdPermission = `
-        INSERT INTO user_permission (id)
-        SELECT 1 WHERE NOT EXISTS (SELECT 1 FROM user_permission WHERE id = 1)
-        UNION
-        SELECT 2 WHERE NOT EXISTS (SELECT 1 FROM user_permission WHERE id = 2)
+    if (resultIdsUserPermission.rows.length === 2) {
+      return;
+    } else {
+      const createIdsUserPermission = `
+        INSERT INTO user_permission (id) VALUES (1), (2)
       `;
 
-      await client.query(createIdPermission);
+      await client.query(createIdsUserPermission);
     }
   } catch (error) {
     console.error("Erro ao criar a tabela user_permission", error.message);
