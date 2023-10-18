@@ -27,6 +27,8 @@ async function setupImagesTable() {
     }
   } catch (error) {
     console.error(`Erro ao criar a tabela Images: ${error.message}`);
+  } finally {
+    client.release();
   }
 }
 
