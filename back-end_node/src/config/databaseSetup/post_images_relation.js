@@ -38,19 +38,23 @@ async function setupPostsImagesRelations() {
     const tablePostImagesRelations =
       resultPostImagesRelationsQuery.rows[0].exists;
 
-    if (!tablePostImagesRelations) {
-      if (tableImagesExists && tablePostsExists) {
+    if (tableImagesExists && tablePostsExists) {
+      if (!tablePostImagesRelations) {
         const createTablePostsImagesRelations = `
-              CREATE TABLE IF NOT EXISTS "post_images_relation" (
-                  post_id INT NOT NULL REFERENCES posts(id),
-                  image_id INT NOT NULL REFERENCES images(id)
-              );
-              `;
+          CREATE TABLE IF NOT EXISTS "post_images_relation" (
+              post_id INT NOT NULL REFERENCES posts(id),
+              image_id INT NOT NULL REFERENCES images(id)
+          );
+          `;
         await client.query(createTablePostsImagesRelations);
       }
     }
   } catch (error) {
-    console.error(`Erro ao criar a tabela PostsImages: ${error.message}`);
+    console.error(
+      `Erro ao criar a tabela PostImagesRelations: ${error.message}`
+    );
+  } finally {
+    client.release();
   }
 }
 
