@@ -8,10 +8,10 @@ import axios from "axios";
 
 interface Post {
   id: number;
-  titule: string;
+  title: string;
   content: string;
   date_created: string;
-  data_change: string;
+  date_change: string;
   comments: string;
   user_id: string;
 }
@@ -27,9 +27,7 @@ const SectionPosts = () => {
           const responseData = response.data;
           setLatestPostState(responseData);
         }
-      } catch (error: any) {
-        console.error("Erro ao obter o último post", error.message);
-      }
+      } catch (error: any) {}
     };
     fetchLatestPost();
   }, []);
@@ -89,12 +87,12 @@ const LatestPost = ({ post }: { post: Post }) => {
         </div>
         <Link href={"/"}>
           <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
-            {post.titule}
+            {post.title}
           </p>
         </Link>
         <p className="text-gray-500 py-3">{post.content}</p>
         <Author>
-
+          
         </Author>
       </div>
     </div>
