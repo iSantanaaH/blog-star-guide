@@ -9,45 +9,6 @@ const CreatePost = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    async function verifyUserPermission() {
-      try {
-        const cookies = document.cookie.split(";");
-        let token = null;
-
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.startsWith("blogstarguide.token=")) {
-            token = cookie.substring(
-              "blogstarguide.token=".length,
-              cookie.length
-            );
-            break;
-          }
-        }
-
-        if (!token) {
-          toast.error("Você não está autenticado");
-          window.location.href = "/";
-        } else {
-          const response = await axios.get("http://localhost:3333/userinfo");
-          console.log(response.status);
-
-          if (response.status === 200) {
-            console.log("teste");
-          } else if (response.status === 403) {
-            toast.error("Você não tem permissão para criar uma postagem");
-            setTimeout(() => {
-              window.location.href = "/";
-            }, 1200);
-          }
-        }
-      } catch (error) {}
-    }
-
-    verifyUserPermission();
-  }, []);
-
   function notifySucessCreatePost() {
     toast("Postagem concluída!");
   }
@@ -60,7 +21,7 @@ const CreatePost = () => {
     event.preventDefault();
 
     try {
-      const formData = new FormData(event.currentTarget as HTMLFormElement);
+      const formData = new FormData(formRef.current as HTMLFormElement);
 
       const formDataObject: Record<string, any> = {};
       formData.forEach((value, key) => {
@@ -92,14 +53,14 @@ const CreatePost = () => {
         formDataObject,
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "multipart/form-data",
             Authorization: token,
           },
         }
       );
 
       if (response.status === 200) {
-        formRef.current?.reset();
+        // formRef.current?.reset();
         notifySucessCreatePost();
 
         console.log(response.data);
