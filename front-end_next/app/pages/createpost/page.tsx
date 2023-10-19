@@ -131,6 +131,7 @@ const CreatePost = () => {
           onSubmit={handleSubmit}
           ref={formRef}
           className="bg-slate-200 rounded-2xl"
+          encType="multipart/form-data"
         >
           <div className="flex justify-center py-10">
             <h1 className="font-bold text-4xl text-center pb-5">
@@ -146,7 +147,7 @@ const CreatePost = () => {
               <input
                 type="text"
                 id="titule"
-                name="titule"
+                name="title"
                 className="input-post mt-2 row-span-2"
                 placeholder="Titulo do post"
               />
@@ -172,7 +173,7 @@ const CreatePost = () => {
           <div className="flex justify-center py-10">
             <div className="flex items-center flex-col">
               <label className="text-lg pb-3">Importar imagem</label>
-              <input type="file" id="image" className="mt-2" />
+              <input type="file" name="image" id="image" className="mt-2" />
             </div>
           </div>
 
