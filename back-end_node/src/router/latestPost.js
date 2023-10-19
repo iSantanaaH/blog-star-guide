@@ -19,7 +19,6 @@ router.get("", async (req, res) => {
     res.status(200).json(latestPost);
   } catch (error) {
     console.error("Erro ao obter o último post", error.message);
-    res.status(400).json({ error: "Erro ao obter o post" });
   }
 });
 
