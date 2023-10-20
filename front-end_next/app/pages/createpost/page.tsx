@@ -17,6 +17,23 @@ const CreatePost = () => {
     toast.error(`Erro: ${message}`);
   }
 
+  useEffect(() => {
+    const cookies = document.cookie.split(";");
+    let token = null;
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith("blogstarguide.token=")) {
+        token = cookie.substring("blogstarguide.token=".length, cookie.length);
+        break;
+      }
+    }
+
+    if (!token) {
+      window.location.href = "/";
+    }
+  }, []);
+
   async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
@@ -43,7 +60,8 @@ const CreatePost = () => {
       }
 
       if (!token) {
-        throw new Error("Token não encontrado nos cookies");
+        // throw new Error("Token não encontrado nos cookies");
+        window.location.href = "/";
       }
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
