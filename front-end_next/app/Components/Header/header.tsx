@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { ImFacebook, ImYoutube, ImTwitter } from "react-icons/im";
+import { RxExit } from "react-icons/rx";
 import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 
@@ -45,41 +46,62 @@ const HeaderComponent = () => {
         </div>
         <div className="w96 order-3 flex justify-center">
           <div className="flex gap-6 sm:mr-4">
-            <Link href={"/"}>
-              <ImFacebook color="#888888" />
-            </Link>
-            <Link href={"/"}>
-              <ImTwitter color="#888888" />
-            </Link>
-            <Link href={"/"}>
-              <ImYoutube color="#888888" />
-            </Link>
+            <span title="Facebook">
+              <Link href={"/"}>
+                <ImFacebook color="#888888" />
+              </Link>
+            </span>
+            <span title="Twitter">
+              <Link href={"/"}>
+                <ImTwitter color="#888888" />
+              </Link>
+            </span>
+            <span title="Youtube">
+              <Link href={"/"}>
+                <ImYoutube color="#888888" title="Youtube" />
+              </Link>
+            </span>
+
             <div className="relative">
               <div
                 ref={dropdownRef}
                 onClick={enableDropdown}
-                className="relative" // Adicionei esta classe para aplicar estilos relativos
+                className="relative"
               >
-                <FaUserCircle color="#888888" />
+                <span title="Conta">
+                  <FaUserCircle color="#888888" />
+                </span>
                 {dropdown && (
-                  <div className="bg-slate-200 p-3 rounded-md absolute flex flex-col top-5 right-3 w-30">
-                    {/* Seta para cima no canto superior direito */}
+                  <div className="bg-slate-200 p-3 rounded-md absolute flex flex-col top-5 right-3 w-28">
                     <div className="absolute right-0 top-0 w-4 h-4 border-t-2 border-r-2 border-solid border-zinc-500 border-opacity-75"></div>
-                    <Link className="links-navBar mb-1 dropdown-link" href={"/"}>
-                      Home
-                    </Link>
-                    <Link className="links-navBar w-full mb-1" href={"/pages/login"}>
+                    <Link
+                      className="links-navBar w-full mb-1"
+                      href={"/pages/login"}
+                    >
                       Login
                     </Link>
-                    <Link className="links-navBar mb-1" href={"/pages/register"}>
+                    <Link
+                      className="links-navBar mb-1"
+                      href={"/pages/register"}
+                    >
                       Cadastrar
                     </Link>
-                    <Link className="links-navBar" href={"/pages/createpost"}>
-                      Criar post
+                    <Link
+                      className="links-navBar mb-1"
+                      href={"/pages/createpost"}
+                    >
+                      Novo Post
                     </Link>
                   </div>
                 )}
               </div>
+            </div>
+            <div>
+              <span title="Sair">
+                <Link href={"/"}>
+                  <RxExit color="#888888" />
+                </Link>
+              </span>
             </div>
           </div>
         </div>
