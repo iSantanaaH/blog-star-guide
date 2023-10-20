@@ -7,6 +7,7 @@ import Link from "next/link";
 
 const HeaderComponent = () => {
   const [dropdown, setDropdown] = useState(false);
+  const [newPost, setNewPost] = useState(true);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   function enableDropdown() {
@@ -31,6 +32,24 @@ const HeaderComponent = () => {
     return () => {
       document.removeEventListener("mousedown", disableDropdown);
     };
+  }, []);
+
+  useEffect(() => {
+    const cookies = document.cookie.split(";");
+    let token = null;
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+
+      if (cookie.startsWith("blogstarguide.token=")) {
+        token = cookie.substring("blogstarguide.token=".length, cookie.length);
+        break;
+      }
+    }
+
+    if (!token) {
+      setNewPost(false);
+    }
   }, []);
 
   return (
@@ -86,12 +105,14 @@ const HeaderComponent = () => {
                     >
                       Cadastrar
                     </Link>
-                    <Link
-                      className="links-navBar mb-1"
-                      href={"/pages/createpost"}
-                    >
-                      Novo Post
-                    </Link>
+                    {newPost && (
+                        <Link
+                          className="links-navBar"
+                          href={"/pages/createpost"}
+                        >
+                          Novo Post
+                        </Link>
+                    )}
                   </div>
                 )}
               </div>
