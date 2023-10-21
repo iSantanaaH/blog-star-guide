@@ -18,7 +18,7 @@ router.post("", async (req, res) => {
     }
 
     const user = userResult.rows[0];
-    const token = jwt.sign({ userId: user.id, enail: user.email }, secretKey);
+    const token = jwt.sign({ userId: user.id, email: user.email, user_permission_id: user.user_permission_id }, secretKey);
     const userName = user.name + " " + user.surname;
 
     res.status(200).json({ token, userName });
