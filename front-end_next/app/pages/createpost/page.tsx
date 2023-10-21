@@ -59,11 +59,6 @@ const CreatePost = () => {
         }
       }
 
-      if (!token) {
-        // throw new Error("Token não encontrado nos cookies");
-        window.location.href = "/";
-      }
-
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       const response = await axios.post(
@@ -81,19 +76,13 @@ const CreatePost = () => {
         // formRef.current?.reset();
         notifySucessCreatePost();
 
-        console.log(response.data);
       }
     } catch (error: any) {
       if (error.response && error.response.status === 403) {
         if (error.response.data && error.response.data.error) {
           const errorMessage = error.response.data.error;
           notifyErrorCreatePost(errorMessage);
-          console.error("Erro ao criar a postagem", errorMessage);
-        } else {
-          console.error("Usuário não tem permissão para criar um post");
         }
-      } else {
-        console.error("Alguns campos estão errados", error.message);
       }
     }
   }
