@@ -1,3 +1,6 @@
+/* Database */
+const pool = require("../config/database/database");
+
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
@@ -5,9 +8,6 @@ const secretKey = process.env.JWT_SECRET;
 const multer = require("multer");
 const upload = multer({ dest: "uploads" });
 const fs = require("fs");
-
-/* Database */
-const pool = require("../config/database/database");
 
 router.post("", upload.single("image"), async (req, res) => {
   try {
@@ -19,6 +19,26 @@ router.post("", upload.single("image"), async (req, res) => {
     const targetDirectory = "uploads";
     const targetPath = `${targetDirectory}/${originalFileName}`;
 
+    const decodedToken = jwt.verify(token, secretKey);
+    const userId = decodedToken.userId;
+    const user_permission_id = decodedToken.user_permission_id;
+    console.log(user_permission_id);
+    const checkUserPermissionQuery =
+      "SELECT user_permission_id FROM users WHERE id = $1";
+    const permissionResult = await pool.query(checkUserPermissionQuery, [
+      userId,
+    ]);
+
+    if (!token || user_permission_id !== 1) {
+      return res
+        .status(403)
+        .json({ error: "Usuário não tem permissão para criar um post" });
+    }
+
+    if (permissionResult.rows.length === 0) {
+      return res.status(401).json({ error: "Usuário não encontrado" });
+    }
+
     fs.rename(tempFilePath, targetPath, (err) => {
       if (err) {
         console.error("Erro ao salvar a imagem:", err);
@@ -27,31 +47,6 @@ router.post("", upload.single("image"), async (req, res) => {
         console.log("A imagem foi salva com sucesso em:", targetPath);
       }
     });
-
-    if (!token) {
-      return res
-        .status(401)
-        .json({ error: "Usuário não tem permissão para criar um post" });
-    }
-    const decodedToken = jwt.verify(token, secretKey);
-    const userId = decodedToken.userId;
-    const checkUserPermissionQuery =
-      "SELECT user_permission_id FROM users WHERE id = $1";
-    const permissionResult = await pool.query(checkUserPermissionQuery, [
-      userId,
-    ]);
-
-    if (permissionResult.rows.length === 0) {
-      return res.status(401).json({ error: "Usuário não encontrado" });
-    }
-
-    const userPermissionId = permissionResult.rows[0].user_permission_id;
-
-    if (userPermissionId !== 1) {
-      return res
-        .status(403)
-        .json({ error: "Usuário não tem permissão para criar um post" });
-    }
 
     let { title, content } = req.body;
 
