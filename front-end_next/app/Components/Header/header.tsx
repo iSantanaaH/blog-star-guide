@@ -7,7 +7,9 @@ import Link from "next/link";
 
 const HeaderComponent = () => {
   const [dropdown, setDropdown] = useState(false);
-  const [newPost, setNewPost] = useState(true);
+  const [newPost, setNewPost] = useState(false);
+  const [showNameUser, setShowNameUser] = useState(false);
+  const [firstNameUser, setFirstNameUser] = useState("");
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -23,19 +25,24 @@ const HeaderComponent = () => {
       }
     }
 
-    if (token) {
+    if (token || token === undefined) {
       try {
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
         const user_permission_id = decodedToken.user_permission_id;
-        console.log(user_permission_id);
 
         if (!token || user_permission_id !== 1) {
           setNewPost(false);
+          setShowNameUser(false);
+        }
+
+        if (token) {
+          const decodedToken = JSON.parse(atob(token.split(".")[1]));
+          const firstNameUser = decodedToken.name;
+          setFirstNameUser(firstNameUser);
+          setShowNameUser(true);
         }
       } catch (error) {}
     }
-
-
   }, []);
 
   function enableDropdown() {
@@ -74,7 +81,7 @@ const HeaderComponent = () => {
           </a>
         </div>
         <div className="w96 order-3 flex justify-center">
-          <div className="flex gap-6 sm:mr-4">
+          <div className="flex items-center gap-6 sm:mr-4">
             <span title="Facebook">
               <Link href={"/"}>
                 <ImFacebook color="#888888" />
@@ -97,9 +104,18 @@ const HeaderComponent = () => {
                 onClick={enableDropdown}
                 className="relative"
               >
-                <span title="Conta">
-                  <FaUserCircle color="#888888" />
-                </span>
+                <div className="flex items-center">
+                  <span title="Conta">
+                    <FaUserCircle color="#888888" />
+                  </span>
+
+                  {showNameUser && (
+                    <div className="ml-2">
+                      <span>{firstNameUser}</span>
+                    </div>
+                  )}
+                </div>
+
                 {dropdown && (
                   <div className="bg-slate-200 p-3 rounded-md absolute flex flex-col top-5 right-3 w-28">
                     <div className="absolute right-0 top-0 w-4 h-4 border-t-2 border-r-2 border-solid border-zinc-500 border-opacity-75"></div>
