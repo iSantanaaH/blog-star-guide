@@ -58,7 +58,7 @@ function FormLoginUser() {
 
       if (response.status === 200) {
         const token = response.data.token;
-        const userName = response.data.userName;
+        const userName = response.data.fullNameUser;
 
         setCookie(undefined, "blogstarguide.token", token, {
           maxAge: 60 * 60 * 1, // 1 hour
