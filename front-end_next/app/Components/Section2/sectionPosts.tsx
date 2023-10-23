@@ -60,7 +60,7 @@ const LatestPost = ({ post }: { post: Post }) => {
   return (
     <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
       <div className="images">
-        <Link href={"/"}>
+        <Link href={`/posts/${post.id}`}>
           <Image
             src={"/images/img4.png"}
             width={450}
@@ -74,18 +74,18 @@ const LatestPost = ({ post }: { post: Post }) => {
 
       <div className="title">
         <div className="cat sml:pb-1 sml:flex sml:justify-start sml:items-start">
-          <Link href={"/"}>
+          <Link href={`/posts/${post.id}`}>
             <span className="text-orange-600 hover:text-orange-800">
               Criado em:
             </span>
           </Link>
-          <Link href={"/"}>
+          <Link href={`/posts/${post.id}`}>
             <span className="text-gray-800 hover:text-gray-600">
               {formattedDate}
             </span>
           </Link>
         </div>
-        <Link href={"/"}>
+        <Link href={`/posts/${post.id}`}>
           <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
             {post.title}
           </p>
