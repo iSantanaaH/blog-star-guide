@@ -25,7 +25,7 @@ const HeaderComponent = () => {
       }
     }
 
-    if (token || token === undefined) {
+    if (token) {
       try {
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
         const user_permission_id = decodedToken.user_permission_id;
@@ -33,8 +33,11 @@ const HeaderComponent = () => {
         if (!token || user_permission_id !== 1) {
           setNewPost(false);
           setShowNameUser(false);
+        } else {
+          setNewPost(true);
+          setShowNameUser(true);
         }
-
+  
         if (token) {
           const decodedToken = JSON.parse(atob(token.split(".")[1]));
           const firstNameUser = decodedToken.name;
@@ -117,7 +120,7 @@ const HeaderComponent = () => {
                 </div>
 
                 {dropdown && (
-                  <div className="bg-slate-200 p-3 rounded-md absolute flex flex-col top-5 right-3 w-28">
+                  <div className={`bg-slate-200 p-3 top-5 right-3 rounded-md absolute flex flex-col ${showNameUser ? "top-6 right-16" : ""}  w-28`}>
                     <div className="absolute right-0 top-0 w-4 h-4 border-t-2 border-r-2 border-solid border-zinc-500 border-opacity-75"></div>
                     <Link
                       className="links-navBar w-full mb-1"
