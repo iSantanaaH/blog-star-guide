@@ -30,7 +30,7 @@ const HeaderComponent = () => {
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
         const user_permission_id = decodedToken.user_permission_id;
 
-        if (!token || user_permission_id !== 1) {
+        if (!token && user_permission_id !== 1) {
           setNewPost(false);
           setShowNameUser(false);
         } else {
