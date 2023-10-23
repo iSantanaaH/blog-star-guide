@@ -10,6 +10,7 @@ const routerRegister = require("./src/router/register");
 const routerLogin = require("./src/router/login");
 const routerLatestPost = require("./src/router/latestPost");
 const routerCreatePost = require("./src/router/createPost");
+const routerPostsPage = require("./src/router/posts");
 
 /* Setup Database */
 const userTableSetup = require("./src/config/databaseSetup/userTableSetup");
@@ -33,6 +34,7 @@ app.use("/register", routerRegister);
 app.use("/login", routerLogin);
 app.use("/latestpost", routerLatestPost);
 app.use("/createpost", routerCreatePost);
+app.use("/posts/:id", routerPostsPage);
 
 app.listen(PORT, () => {
   console.log(`Servidor iniciado em localhost no dia ${Date()}`);
