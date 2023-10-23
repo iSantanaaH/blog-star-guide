@@ -15,16 +15,22 @@ router.post("", upload.single("image"), async (req, res) => {
     const token = req.headers.authorization;
 
     const tempFilePath = image.destination + "/" + image.filename;
+
     const originalFileName = image.originalname;
+
     const targetDirectory = "uploads";
+
     const targetPath = `${targetDirectory}/${originalFileName}`;
 
     const decodedToken = jwt.verify(token, secretKey);
+
     const userId = decodedToken.userId;
+
     const user_permission_id = decodedToken.user_permission_id;
-    console.log(user_permission_id);
+
     const checkUserPermissionQuery =
       "SELECT user_permission_id FROM users WHERE id = $1";
+
     const permissionResult = await pool.query(checkUserPermissionQuery, [
       userId,
     ]);
@@ -55,6 +61,7 @@ router.post("", upload.single("image"), async (req, res) => {
         `;
 
     const values = [title, content, userId];
+
     const newPostResult = await pool.query(createNewPostQuery, values);
 
     if (newPostResult.rows.length === 0) {
