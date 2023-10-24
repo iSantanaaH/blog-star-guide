@@ -50,8 +50,7 @@ const SectionPosts = () => {
 export default SectionPosts;
 
 const LatestPost = ({ post }: { post: Post }) => {
-  const date = new Date(post.date_created);
-  const formattedDate = date.toLocaleDateString("pt-BR", {
+  const formattedDate = new Date(post.date_created).toLocaleDateString("pt-BR", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -60,6 +59,7 @@ const LatestPost = ({ post }: { post: Post }) => {
   return (
     <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
       <div className="images">
+        <button onClick={() => console.log(post.id)}>Teste</button>
         <Link href={`/posts/${post.id}`}>
           <Image
             src={"/images/img4.png"}
