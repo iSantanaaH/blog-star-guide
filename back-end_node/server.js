@@ -34,7 +34,7 @@ app.use("/register", routerRegister);
 app.use("/login", routerLogin);
 app.use("/latestpost", routerLatestPost);
 app.use("/createpost", routerCreatePost);
-app.use("/posts/:id", routerPostsPage);
+app.use("/posts", routerPostsPage);
 
 app.listen(PORT, () => {
   console.log(`Servidor iniciado em localhost no dia ${Date()}`);
