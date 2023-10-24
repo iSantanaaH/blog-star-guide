@@ -3,7 +3,7 @@ const pool = require("../config/database/database");
 const express = require("express");
 const router = express.Router();
 
-router.get("", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const postId = req.params.id;
 
   try {
@@ -19,7 +19,7 @@ router.get("", async (req, res) => {
     }
   } catch (error) {
     console.error("Erro ao buscar o post:", error.message);
-    return res.status(500).json({ error: "Erro ao buscar o post" });
+    return res.status(404).json({ error: "Erro ao buscar o post" });
   }
 });
 
