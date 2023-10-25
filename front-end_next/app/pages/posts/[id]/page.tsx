@@ -14,7 +14,6 @@ export default function PostSectionMostRecent({
 }) {
   const { id } = params;
   const [post, setPost] = useState({
-    id: Number,
     title: "",
     content: "",
     date_created: Date,
