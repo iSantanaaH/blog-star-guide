@@ -50,17 +50,20 @@ const SectionPosts = () => {
 export default SectionPosts;
 
 const LatestPost = ({ post }: { post: Post }) => {
-  const formattedDate = new Date(post.date_created).toLocaleDateString("pt-BR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = new Date(post.date_created).toLocaleDateString(
+    "pt-BR",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  );
 
   return (
     <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
       <div className="images">
         <button onClick={() => console.log(post.id)}>Teste</button>
-        <Link href={`/posts/${post.id}`}>
+        <Link href={`/pages/posts/${post.id}`}>
           <Image
             src={"/images/img4.png"}
             width={450}
@@ -74,18 +77,18 @@ const LatestPost = ({ post }: { post: Post }) => {
 
       <div className="title">
         <div className="cat sml:pb-1 sml:flex sml:justify-start sml:items-start">
-          <Link href={`/posts/${post.id}`}>
+          <Link href={`/pages/posts/${post.id}`}>
             <span className="text-orange-600 hover:text-orange-800">
               Criado em:
             </span>
           </Link>
-          <Link href={`/posts/${post.id}`}>
+          <Link href={`/pages/posts/${post.id}`}>
             <span className="text-gray-800 hover:text-gray-600">
               {formattedDate}
             </span>
           </Link>
         </div>
-        <Link href={`/posts/${post.id}`}>
+        <Link href={`/pages/posts/${post.id}`}>
           <p className="text-xl font-bold text-gray-800 hover:text-gray-600">
             {post.title}
           </p>
