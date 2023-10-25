@@ -56,11 +56,25 @@ const Author = ({ children }: AuthorProps) => {
 
       <div className="flex flex-col justify-center px-4">
         <Link href={"/"}>
+          
+            {userName !== null ? (
+              <>
           <span className="text-md font-bold text-gray-800 hover:text-gray-600 ">
             {userName}
           </span>
+              </>
+            ) : (
+              <span className="text-md font-bold text-gray-800 hover:text-gray-600 ">Desconhecido</span>
+            )}
         </Link>
-        <span className="text-sm text-gray-500">Fundador</span>
+
+        {userName !== null ? (
+          <>
+          <span className="text-sm text-gray-500">Fundador</span>
+          </>
+        ) : (
+          <span className="text-sm text-gray-500">...</span>
+        )}
         {children}
       </div>
     </div>
