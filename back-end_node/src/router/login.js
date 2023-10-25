@@ -20,7 +20,7 @@ router.post("", async (req, res) => {
     const user = userResult.rows[0];
     const fullNameUser = user.name + " " + user.surname;
     const firstNameUser = user.name;
-    const token = jwt.sign({ userId: user.id, email: user.email, user_permission_id: user.user_permission_id, name: firstNameUser }, secretKey);
+    const token = jwt.sign({ userId: user.id, email: user.email, user_permission_id: user.user_permission_id, name: firstNameUser, fullName: fullNameUser }, secretKey);
 
     res.status(200).json({ token, fullNameUser });
   } catch (error) {
