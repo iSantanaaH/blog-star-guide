@@ -1,17 +1,24 @@
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import axios from "axios";
+"use client";
 import Author from "@/app/Components/Child/author";
 import Related from "@/app/Components/Child/related";
 import Format from "@/layout/format";
+import axios from "axios";
+import Image from "next/image";
 
-export default function PostSectionMostRecent({ params }: { params: { id: string } }) {
+import { useEffect, useState } from "react";
+
+export default function PostSectionMostRecent({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { id } = params;
   const [post, setPost] = useState({
+    id: Number,
     title: "",
     content: "",
     date_created: Date,
-    date_change: Date,
+    date_chenge: Date,
     comments: "",
     user_id: "",
   });
@@ -25,11 +32,7 @@ export default function PostSectionMostRecent({ params }: { params: { id: string
           setPost(responseData);
         }
       } catch (error: any) {
-        if (error.response && error.response.status === 404) {
-          if (error.response.data && error.response.data.error) {
-          }
-          console.log("Erro ao buscar detalhes da postagem:", error.message);
-        }
+        console.log("Erro ao buscar detalhes da postagem:", error.message);
       }
     };
 
@@ -43,16 +46,19 @@ export default function PostSectionMostRecent({ params }: { params: { id: string
       <section className="container mx-auto md:px-2 py-16 w-1/2">
         <div className="flex justify-center">
           <Author>
-            
+
           </Author>
         </div>
-
         <div className="post py-10">
-          <div className="py-10">
-            <Image src={"/images/img1.png"} width={900} height={600} alt={""} />
-          </div>
           <h1 className="font-bold text-4xl text-center pb-5">{post.title}</h1>
-          <p className="text-gray-500 text-xl text-center">{post.content}</p>
+        </div>
+        <div className="py-10">
+          <Image src={"/images/img1.png"} width={900} height={600} alt={""} />
+        </div>
+        <div className="post py-10">
+          <p className="content text-gray-600 text-lg flex flex-col gap-4">
+            {post.content}
+          </p>
         </div>
 
         <Related></Related>
