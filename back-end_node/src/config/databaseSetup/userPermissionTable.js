@@ -8,6 +8,12 @@ const checkTableUserPermission = `
   )
 `;
 
+const createTableUserPermission = `
+  CREATE TABLE IF NOT EXISTS "user_permission" (
+    id SERIAL PRIMARY KEY
+  )
+`;
+
 const checkIdsUserPermission = `
   SELECT id
   FROM user_permission
@@ -20,18 +26,14 @@ async function setupTableUserPermission() {
     const resultUserPermissionQuery = await client.query(
       checkTableUserPermission
     );
-    const resultIdsUserPermission = await client.query(checkIdsUserPermission);
 
-    const tableUserPermission = resultUserPermissionQuery.rows[0].exists;
+    const tableUserPermissionExists = resultUserPermissionQuery.rows[0].exists;
 
-    if (!tableUserPermission) {
-      const createTableUserPermissionQuery = `
-                CREATE TABLE IF NOT EXISTS "user_permission" (
-                  id SERIAL PRIMARY KEY
-                )
-              `;
-      await client.query(createTableUserPermissionQuery);
+    if (!tableUserPermissionExists) {
+      await client.query(createTableUserPermission);
     }
+
+    const resultIdsUserPermission = await client.query(checkIdsUserPermission);
 
     if (resultIdsUserPermission.rows.length === 2) {
       return;
@@ -39,7 +41,6 @@ async function setupTableUserPermission() {
       const createIdsUserPermission = `
         INSERT INTO user_permission (id) VALUES (1), (2)
       `;
-
       await client.query(createIdsUserPermission);
     }
   } catch (error) {
