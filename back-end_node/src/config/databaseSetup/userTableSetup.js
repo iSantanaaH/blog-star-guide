@@ -30,16 +30,16 @@ async function setupUserTable() {
     if (tableUserPermissionExists) {
       if (!tableUserExists) {
         const createTableUserQuery = `
-          CREATE TABLE IF NOT EXISTS "users" (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            surname VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL,
-            phone VARCHAR(20) NOT NULL,
-            password VARCHAR(255) NOT NULL,
-            birthday TIMESTAMP NOT NULL,
-            user_permission_id INT NOT NULL REFERENCES user_permission(id)
-          )
+        CREATE TABLE IF NOT EXISTS "users" (
+          id SERIAL PRIMARY KEY,
+          name VARCHAR(255) NOT NULL UNIQUE,
+          surname VARCHAR(255) NOT NULL,
+          email VARCHAR(255) NOT NULL,
+          phone VARCHAR(20) NOT NULL,
+          password VARCHAR(255) NOT NULL,
+          birthday TIMESTAMP NOT NULL,
+          user_permission_id INT NOT NULL REFERENCES user_permission(id)
+        )
         `;
         await client.query(createTableUserQuery);
       }
