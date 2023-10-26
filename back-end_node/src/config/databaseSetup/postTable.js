@@ -24,7 +24,7 @@ async function setupPostTable() {
         date_created TIMESTAMP,
         date_change TIMESTAMP,
         comments TEXT,
-        user_id INT NOT NULL REFERENCES users(id)
+        user_name INT NOT NULL REFERENCES users(id)
       )
       `;
       await client.query(createTablePostsQuery);
