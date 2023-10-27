@@ -102,18 +102,14 @@ const HeaderComponent = () => {
             </span>
 
             <div className="relative">
-              <div
-                ref={dropdownRef}
-                onClick={enableDropdown}
-                className="relative"
-              >
-                <div className="flex items-center">
+              <div ref={dropdownRef} onClick={enableDropdown} className="">
+                <div className="relative">
                   <span title="Conta">
                     <FaUserCircle color="#888888" />
                   </span>
 
                   {showNameUser && (
-                    <div className="ml-2">
+                    <div className="absolute left-0 mt-2">
                       <span>{firstNameUser}</span>
                     </div>
                   )}
@@ -121,9 +117,7 @@ const HeaderComponent = () => {
 
                 {dropdown && (
                   <div
-                    className={`bg-slate-200 p-3 top-5 right-3 rounded-md absolute flex flex-col ${
-                      showNameUser ? "top-6 right-16" : ""
-                    }  w-28`}
+                    className={`flex flex-col absolute right-2 top-5 bg-slate-200 p-3 rounded-md w-28`}
                   >
                     <div className="absolute right-0 top-0 w-4 h-4 border-t-2 border-r-2 border-solid border-zinc-500 border-opacity-75"></div>
                     <Link
