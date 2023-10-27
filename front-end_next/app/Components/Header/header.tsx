@@ -73,7 +73,7 @@ const HeaderComponent = () => {
   }, []);
 
   return (
-    <header className="bg-slate-100 z-10 w-full sm639:pb-4 p-4">
+    <header className="bg-slate-100 z-10 w-full sm639:pb-4 p-5">
       <div className="xl:container xl:mx-auto flex flex-col items-center sm:flex-row sm:justify-between text-center">
         <div className="md:flex-none w-96 order-2 sm:order-1 flex justify-center py-4 sm:py-0">
           <input type="text" className="input-text" placeholder="Search..." />
@@ -83,7 +83,7 @@ const HeaderComponent = () => {
             A estrela guia
           </a>
         </div>
-        <div className="w96 order-3 flex justify-center">
+        <div className="w96 order-3 flex justify-center sml:pb-4 sm639:pb-4">
           <div className="flex items-center gap-6 sm:mr-4">
             <span title="Facebook">
               <Link href={"/"}>
