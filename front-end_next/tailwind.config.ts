@@ -14,6 +14,9 @@ const config: Config = {
         "sm639": {"max": "767px"},
         "sml639": {"max": "639px"},
       },
+      spacing: {
+        "right-18": "4.5rem"
+      }
     },
   },
   plugins: [],
