@@ -62,7 +62,6 @@ const LatestPost = ({ post }: { post: Post }) => {
   return (
     <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
       <div className="images">
-        <button onClick={() => console.log(post.id)}>Teste</button>
         <Link href={`/pages/posts/${post.id}`}>
           <Image
             src={"/images/img4.png"}
