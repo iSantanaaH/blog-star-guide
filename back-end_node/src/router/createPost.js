@@ -17,10 +17,23 @@ router.post("", upload.single("image"), async (req, res) => {
     const tempFilePath = image.destination + "/" + image.filename;
 
     const originalFileName = image.originalname;
-
     const targetDirectory = "uploads";
 
     const targetPath = `${targetDirectory}/${originalFileName}`;
+    const image_name = originalFileName;
+    const image_path = targetPath;
+
+    const insertImageQuery = `
+      INSERT INTO images (name, image_path) VALUES ($1, $2) RETURNING id
+    `;
+    const imageValues = [image_name, image_path];
+    const imageInsertResult = await pool.query(insertImageQuery, imageValues);
+    const imageId = imageInsertResult.rows[0].id;
+
+    if (imageInsertResult.rows.length === 0) {
+      return res.status(400).json({ error: "Erro ao inserir a imagem" });
+    } else {
+    }
 
     const decodedToken = jwt.verify(token, secretKey);
 
@@ -58,21 +71,34 @@ router.post("", upload.single("image"), async (req, res) => {
     let { title, content } = req.body;
 
     const createNewPostQuery = `
-        INSERT INTO posts(title, content, user_name, date_created) VALUES ($1, $2, $3, NOW()) RETURNING title, content, date_created
+        INSERT INTO posts(title, content, user_name, date_created) VALUES ($1, $2, $3, NOW()) RETURNING title, content, date_created, id
         `;
 
     const values = [title, content, userName];
 
     const newPostResult = await pool.query(createNewPostQuery, values);
+    const postId = newPostResult.rows[0].id;
 
     if (newPostResult.rows.length === 0) {
       return res.status(400).json({ error: "Erro ao criar a postagem" });
     }
 
     const newPost = newPostResult.rows[0];
+
+    const insertPostsRelationsQuery = `
+    INSERT INTO post_images_relation (post_id, image_id) VALUES ($1, $2)
+    `;
+
+    const valuesPostImagesRelation = [postId, imageId];
+    const newRelation = await pool.query(
+      insertPostsRelationsQuery,
+      valuesPostImagesRelation
+    );
+
+    const resultRelation = newRelation.rows[0];
     res
       .status(200)
-      .json({ mensagem: "Postagem criada com sucesso!", post: newPost });
+      .json({ mensagem: "Postagem criada com sucesso!", post: newPost, relation: resultRelation });
   } catch (error) {
     console.error("Erro ao criar a postagem", error.message);
     res.status(400).json({ error: "Erro ao criar a postagem" });
