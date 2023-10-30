@@ -80,7 +80,6 @@ const HeaderComponent = () => {
         </div>
         <div className="shrink w-80 sm:order-2 sm639:pt-4">
           <a href="/" className="font-bold uppercase text-3xl">
-            estrela guia
           </a>
         </div>
         <div className="w96 order-3 flex justify-center sml:pb-4 sm639:pb-4">
