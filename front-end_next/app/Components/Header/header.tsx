@@ -116,9 +116,15 @@ const HeaderComponent = () => {
 
                 {dropdown && (
                   <div
-                    className={`flex flex-col absolute right-2 top-5 bg-slate-200 p-3 rounded-md w-28`}
+                    className={`flex flex-col absolute right-2 top-5 bg-slate-200 p-3 rounded-md w-32`}
                   >
                     <div className="absolute right-0 top-0 w-4 h-4 border-t-2 border-r-2 border-solid border-zinc-500 border-opacity-75"></div>
+                    <Link
+                      className="links-navBar w-full mb-1"
+                      href={"/"}
+                    >
+                      Página inicial
+                    </Link>
                     <Link
                       className="links-navBar w-full mb-1"
                       href={"/pages/login"}
