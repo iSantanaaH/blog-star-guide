@@ -5,7 +5,7 @@ import Format from "@/layout/format";
 import axios from "axios";
 import Image from "next/image";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function PostSectionMostRecent({
   params,
@@ -29,10 +29,11 @@ export default function PostSectionMostRecent({
       try {
         if (id) {
           const response = await axios.get(`http://localhost:3333/posts/${id}`);
-          const responseData = response.data.rows;
-          const baseUrl = "http://localhost:3333/"
-          const imagePath = `${baseUrl}/${response.data.imagePath}`;
-          setPost(responseData);
+          const responsePostData = response.data.rows;
+          const responseImagePathData = response.data.imagePath;
+          const baseUrl = `http://localhost:3333`;
+          const imagePath = `${baseUrl}/${responseImagePathData}`;
+          setPost(responsePostData);
           setImage(imagePath);
         }
       } catch (error: any) {
@@ -57,7 +58,14 @@ export default function PostSectionMostRecent({
           <h1 className="font-bold text-4xl text-center pb-5">{post.title}</h1>
         </div>
         <div className="py-10">
-          <Image src={image} width={900} height={600} alt={"Imagem do post"} />
+          {image && (
+            <Image
+              src={image}
+              width={900}
+              height={600}
+              alt={"Imagem do post"}
+            />
+          )}
         </div>
         <div className="post py-10">
           <p className="content text-gray-600 text-lg flex flex-col gap-4">
