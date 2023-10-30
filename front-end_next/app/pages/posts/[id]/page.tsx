@@ -22,13 +22,18 @@ export default function PostSectionMostRecent({
     user_id: "",
   });
 
+  const [image, setImage] = useState("");
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
         if (id) {
           const response = await axios.get(`http://localhost:3333/posts/${id}`);
           const responseData = response.data.rows;
+          const baseUrl = "http://localhost:3333/"
+          const imagePath = `${baseUrl}/${response.data.imagePath}`;
           setPost(responseData);
+          setImage(imagePath);
         }
       } catch (error: any) {
         console.log("Erro ao buscar detalhes da postagem:", error.message);
@@ -52,7 +57,7 @@ export default function PostSectionMostRecent({
           <h1 className="font-bold text-4xl text-center pb-5">{post.title}</h1>
         </div>
         <div className="py-10">
-          <Image src={"/images/img1.png"} width={900} height={600} alt={""} />
+          <Image src={image} width={900} height={600} alt={"Imagem do post"} />
         </div>
         <div className="post py-10">
           <p className="content text-gray-600 text-lg flex flex-col gap-4">
