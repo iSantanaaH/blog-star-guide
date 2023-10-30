@@ -77,7 +77,7 @@ const LatestPost = ({ post }: { post: Post }) => {
       <div className="title">
         <div className="cat sml:pb-1 sml:flex sml:justify-start sml:items-start">
           <Link href={`/pages/posts/${post.id}`}>
-            <span className="text-orange-600 hover:text-orange-800">
+            <span className="text-orange-600 hover:text-orange-800 mr-1">
               Criado em:
             </span>
           </Link>
@@ -92,9 +92,26 @@ const LatestPost = ({ post }: { post: Post }) => {
             {post.title}
           </p>
         </Link>
-        <p className="text-gray-500 py-3">{post.content}</p>
+        {post.content.length > 40 ? (
+          <div>
+            <p className="text-gray-500 py-3">
+              {post.content}
+              <Link
+                className="font-bold ml-1 text-black"
+                href={`/pages/posts/${post.id}`}
+              >
+                Ver mais...
+              </Link>
+            </p>
+          </div>
+        ) : (
+          <div>
+            <p className="text-gray-500 py-3">{post.content}</p>
+          </div>
+        )}
+
         <Author>
-          
+
         </Author>
       </div>
     </div>
