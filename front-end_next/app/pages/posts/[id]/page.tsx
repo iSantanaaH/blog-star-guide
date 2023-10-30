@@ -48,10 +48,10 @@ export default function PostSectionMostRecent({
 
   return (
     <Format>
-      <section className="container mx-auto md:px-2 py-16 w-1/2">
+      <section className="container mx-auto md:px-2 py-16 w-1/2 flex flex-col items-center">
         <div className="flex justify-center">
           <Author>
-
+            
           </Author>
         </div>
         <div className="post py-10">
@@ -61,7 +61,7 @@ export default function PostSectionMostRecent({
           {image && (
             <Image
               src={image}
-              width={900}
+              width={700}
               height={600}
               alt={"Imagem do post"}
             />
@@ -72,7 +72,6 @@ export default function PostSectionMostRecent({
             {post.content}
           </p>
         </div>
-
         <Related></Related>
       </section>
     </Format>
