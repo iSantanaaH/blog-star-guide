@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
+const path = require("path");
 
 /* Router */
 const routerRegister = require("./src/router/register");
@@ -21,6 +22,7 @@ const setupTablePostImagesRelations = require("./src/config/databaseSetup/post_i
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 (async () => {
   await userPermission();
