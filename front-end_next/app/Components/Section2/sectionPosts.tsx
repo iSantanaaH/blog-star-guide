@@ -14,6 +14,7 @@ interface Post {
   date_change: string;
   comments: string;
   user_id: string;
+  image_path: string;
 }
 
 const SectionPosts = () => {
@@ -22,7 +23,7 @@ const SectionPosts = () => {
   useEffect(() => {
     const fetchLatestPost = async () => {
       try {
-        const response = await axios.get("http://localhost:3333/latestpost");
+        const response = await axios.get(`http://localhost:3333/latestpost/`);
         if (response.status === 200) {
           const responseData = response.data;
           setLatestPostState(responseData);
@@ -64,7 +65,7 @@ const LatestPost = ({ post }: { post: Post }) => {
       <div className="images">
         <Link href={`/pages/posts/${post.id}`}>
           <Image
-            src={"/images/img4.png"}
+            src={`http://localhost:3333/${post.image_path}`}
             width={450}
             height={350}
             alt="Picture Blog"
