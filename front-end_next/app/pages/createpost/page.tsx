@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 const CreatePost = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const ContentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
+
 
   function notifySucessCreatePost() {
     toast("Postagem concluída!");
@@ -15,6 +17,16 @@ const CreatePost = () => {
 
   function notifyErrorCreatePost(message: string) {
     toast.error(`Erro: ${message}`);
+  }
+
+  
+  function handleResizeContentTextarea() {
+    const textarea = ContentTextareaRef.current;
+
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
   }
 
   useEffect(() => {
@@ -134,6 +146,8 @@ const CreatePost = () => {
                 className="mt-2 w-ful sm:w-full"
                 id="description"
                 name="content"
+                ref={ContentTextareaRef}
+                onChange={handleResizeContentTextarea}
               ></textarea>
             </div>
           </div>
