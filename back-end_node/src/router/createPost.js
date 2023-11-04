@@ -6,7 +6,8 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const secretKey = process.env.JWT_SECRET;
 const multer = require("multer");
-const upload = multer({ dest: "uploads" });
+const permanentUploadDirectory = "uploads";
+const upload = multer({ dest: permanentUploadDirectory });
 const fs = require("fs");
 
 router.post("", upload.single("image"), async (req, res) => {
@@ -14,12 +15,11 @@ router.post("", upload.single("image"), async (req, res) => {
     const image = req.file;
     const token = req.headers.authorization;
 
-    const tempFilePath = image.destination + "/" + image.filename;
+    const tempFilePath = image.path;
 
     const originalFileName = image.originalname;
-    const targetDirectory = "uploads";
 
-    const targetPath = `${targetDirectory}/${originalFileName}`;
+    const targetPath = `${permanentUploadDirectory}/${originalFileName}`;
     const image_name = originalFileName;
     const image_path = targetPath;
 
