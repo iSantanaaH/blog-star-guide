@@ -69,7 +69,7 @@ const LatestPost = ({ post }: { post: Post }) => {
             width={450}
             height={350}
             alt="Picture Blog"
-            className="rounded-sm"
+            className="rounded-md drop-shadow-2xl"
           />
         </Link>
       </div>
