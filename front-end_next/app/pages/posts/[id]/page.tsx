@@ -62,8 +62,10 @@ export default function PostSectionMostRecent({
             <Image
               src={image}
               width={700}
+              style={{ width: "auto", height: "auto" }}
               height={600}
               alt={"Imagem do post"}
+              className="rounded-md drop-shadow-2xl"
             />
           )}
         </div>
