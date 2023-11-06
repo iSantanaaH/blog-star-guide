@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Author from "../Child/author";
 import { useState, useEffect } from "react";
+import { GrEdit } from "react-icons/gr";
 import axios from "axios";
 
 interface Post {
@@ -19,6 +20,9 @@ interface Post {
 
 const SectionPosts = () => {
   const [latestPostState, setLatestPostState] = useState<Post[]>([]);
+  const [dropwdown, setDropdown] = useState(false);
+  const [showIconEdit, setShowIconEdit] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchLatestPost = async () => {
@@ -31,6 +35,57 @@ const SectionPosts = () => {
       } catch (error: any) {}
     };
     fetchLatestPost();
+  }, []);
+
+  useEffect(() => {
+    const cookies = document.cookie.split(";");
+    let token = null;
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+
+      if (cookie.startsWith("blogstarguide.token=")) {
+        token = cookie.substring("blogstarguide.token=".length, cookie.length);
+        break;
+      }
+    }
+
+    if (token) {
+      try {
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        const user_permission_id = decodedToken.user_permission_id;
+
+        if (!token || user_permission_id !== 1) {
+          setShowIconEdit(false);
+        } else {
+          setShowIconEdit(true);
+        }
+      } catch (error) {}
+    }
+  }, []);
+
+  function EnableDropdown() {
+    setDropdown((prevState) => !prevState);
+  }
+
+  useEffect(() => {
+    function disableDropdown(event: MouseEvent) {
+      event.stopPropagation();
+      const clickedElement = event.target as HTMLElement;
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(clickedElement) &&
+        !clickedElement.classList.contains("dropdown-link")
+      ) {
+        setDropdown(false);
+      }
+    }
+
+    document.addEventListener("mousedown", disableDropdown);
+
+    return () => {
+      document.removeEventListener("mousedown", disableDropdown);
+    };
   }, []);
 
   return (
@@ -62,16 +117,20 @@ const LatestPost = ({ post }: { post: Post }) => {
 
   return (
     <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
-      <div className="images">
+      <div className="images relative" ref={dropdownRef}>
         <Link href={`/pages/posts/${post.id}`}>
           <Image
             src={`http://localhost:3333/${post.image_path}`}
             width={450}
             height={350}
+            style={{ width: "auto", height: "auto" }}
             alt="Picture Blog"
             className="rounded-md drop-shadow-2xl"
           />
         </Link>
+        <button className="bg-slate-400 rounded-md border-none absolute top-0 right-0 p-1">
+          <GrEdit color="#111" />
+        </button>
       </div>
       <div className="info flex justify-center flex-col py-4 sml:py-2"></div>
 
@@ -111,9 +170,7 @@ const LatestPost = ({ post }: { post: Post }) => {
           </div>
         )}
 
-        <Author>
-
-        </Author>
+        <Author></Author>
       </div>
     </div>
   );
