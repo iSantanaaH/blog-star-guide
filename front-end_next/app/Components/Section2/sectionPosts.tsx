@@ -117,7 +117,7 @@ const LatestPost = ({ post }: { post: Post }) => {
 
   return (
     <div className="item sml:flex sml:flex-col sml:justify-center sml:items-center">
-      <div className="images relative" ref={dropdownRef}>
+      <div className="images relative">
         <Link href={`/pages/posts/${post.id}`}>
           <Image
             src={`http://localhost:3333/${post.image_path}`}
@@ -170,7 +170,8 @@ const LatestPost = ({ post }: { post: Post }) => {
           </div>
         )}
 
-        <Author></Author>
+        <Author>
+        </Author>
       </div>
     </div>
   );
