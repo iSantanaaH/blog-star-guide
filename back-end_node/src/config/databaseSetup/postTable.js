@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS "posts" (
   date_created TIMESTAMP,
   date_change TIMESTAMP,
   comments TEXT,
-  user_name VARCHAR(255) NOT NULL REFERENCES users(name)
+  user_artistic_name VARCHAR(255) NOT NULL REFERENCES users(artistic_name)
 )
 `;
 
