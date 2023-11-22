@@ -63,8 +63,8 @@ function FormUserRegisterAccount() {
     toast("Sucesso ao criar usuário!");
   }
 
-  function notifyErrorCreateUser() {
-    toast.error("O email já foi cadastrado");
+  function notifyErrorCreateUser(message: string) {
+    toast.error(`Erro: ${message}`);
   }
 
   function removeSpecialCharacters(value: string) {
@@ -152,21 +152,29 @@ function FormUserRegisterAccount() {
       );
 
       if (response.status === 200) {
-        formRef.current?.reset();
+        // formRef.current?.reset();
         setfirstLetterUppercaseName("");
         setfirstLetterUppercaseSurname("");
         setPhone("");
         setEmail("");
         notifySuccesCreateUser();
 
-        setTimeout(() => {
-          window.location.href = "/pages/login";
-        }, 3000);
-      } else {
-        notifyErrorCreateUser();
+        // setTimeout(() => {
+        //   window.location.href = "/pages/login";
+        // }, 3000);
       }
     } catch (error: any) {
-      console.error("Erro do catch:", error.message);
+      if (error.response && error.response.status === 400) {
+        if (error.response.data && error.response.data.error) {
+          const errorMessage = error.response.data.error;
+          notifyErrorCreateUser(errorMessage);
+        }
+      } else if (error.response && error.response.status === 404) {
+        if (error.response.data && error.response.data.error) {
+          const errorMessage = error.response.data.error;
+          notifyErrorCreateUser(errorMessage);
+        }
+      }
     } finally {
       setIsLoading(false);
     }
@@ -217,6 +225,7 @@ function FormUserRegisterAccount() {
         >
           <div className="">
             <h2 className="font-bold text-4xl text-center pb-3">Registre-se</h2>
+            <button onClick={() => {notifyErrorCreateUser}}>Teste</button>
           </div>
           <div className="grid grid-cols-2 sml639:grid-cols-1 sml639:p-7 sml:grid-cols-1 flex-wrap justify-center">
             <div className="col-span-1">
