@@ -33,7 +33,7 @@ async function setupUserTable() {
         CREATE TABLE IF NOT EXISTS "users" (
           id SERIAL PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
-          artistic_name VARCHAR(255) NOT NULL UNIQUE,
+          artistic_name VARCHAR(255) UNIQUE,
           surname VARCHAR(255) NOT NULL,
           email VARCHAR(255) NOT NULL,
           phone VARCHAR(20) NOT NULL,
