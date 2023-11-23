@@ -38,7 +38,8 @@ router.post("", upload.single("image"), async (req, res) => {
     const decodedToken = jwt.verify(token, secretKey);
 
     const userId = decodedToken.userId;
-    const userName = decodedToken.name;
+    const userArtisticName = decodedToken.artisticName;
+    console.log(userArtisticName);
 
     const user_permission_id = decodedToken.user_permission_id;
 
@@ -71,10 +72,10 @@ router.post("", upload.single("image"), async (req, res) => {
     let { title, content } = req.body;
 
     const createNewPostQuery = `
-        INSERT INTO posts(title, content, user_name, date_created) VALUES ($1, $2, $3, NOW()) RETURNING title, content, date_created, id
+        INSERT INTO posts(title, content, user_artistic_name, date_created) VALUES ($1, $2, $3, NOW()) RETURNING title, content, date_created, id
         `;
 
-    const values = [title, content, userName];
+    const values = [title, content, userArtisticName];
 
     const newPostResult = await pool.query(createNewPostQuery, values);
     const postId = newPostResult.rows[0].id;
