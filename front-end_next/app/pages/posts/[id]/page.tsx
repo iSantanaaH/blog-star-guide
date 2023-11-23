@@ -28,7 +28,7 @@ export default function PostSectionMostRecent({
     const fetchPost = async () => {
       try {
         if (id) {
-          const response = await axios.get(`http://localhost:3333/posts/${id}`);
+          const response = await axios.get(`http://localhost:3333/api/posts/${id}`);
           const responsePostData = response.data.rows;
           const responseImagePathData = response.data.imagePath;
           const baseUrl = `http://localhost:3333`;
