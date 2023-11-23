@@ -27,7 +27,7 @@ const SectionPosts = () => {
   useEffect(() => {
     const fetchLatestPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:3333/latestpost/`);
+        const response = await axios.get(`http://localhost:3333/api/latestpost/`);
         if (response.status === 200) {
           const responseData = response.data;
           setLatestPostState(responseData);
