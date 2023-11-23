@@ -32,11 +32,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
   await setupTablePostImagesRelations();
 })();
 
-app.use("/register", routerRegister);
-app.use("/login", routerLogin);
-app.use("/latestpost", routerLatestPost);
-app.use("/createpost", routerCreatePost);
-app.use("/posts", routerPostsPage);
+app.use("/api/register", routerRegister);
+app.use("/api/login", routerLogin);
+app.use("/api/latestpost", routerLatestPost);
+app.use("/api/createpost", routerCreatePost);
+app.use("/api/posts", routerPostsPage);
 
 app.listen(PORT, () => {
   console.log(`Servidor iniciado em localhost no dia ${Date()}`);
