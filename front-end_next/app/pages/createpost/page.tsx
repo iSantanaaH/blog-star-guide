@@ -10,7 +10,6 @@ const CreatePost = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const ContentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-
   function notifySucessCreatePost() {
     toast("Postagem concluída!");
   }
@@ -19,7 +18,6 @@ const CreatePost = () => {
     toast.error(`Erro: ${message}`);
   }
 
-  
   function handleResizeContentTextarea() {
     const textarea = ContentTextareaRef.current;
 
@@ -58,7 +56,7 @@ const CreatePost = () => {
       });
 
       const cookies = document.cookie.split(";");
-      let token = null;
+      let token = "";
 
       for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
@@ -70,11 +68,16 @@ const CreatePost = () => {
           break;
         }
       }
+      const decodedToken = JSON.parse(atob(token?.split(".")[1]));
+      const artisticName = decodedToken.artisticName;
+      
+
+      formDataObject["artisticName"] = artisticName;
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       const response = await axios.post(
-        "http://localhost:3333/createpost",
+        "http://localhost:3333/api/createpost",
         formDataObject,
         {
           headers: {
@@ -85,9 +88,8 @@ const CreatePost = () => {
       );
 
       if (response.status === 200) {
-        // formRef.current?.reset();
+        formRef.current?.reset();
         notifySucessCreatePost();
-
       }
     } catch (error: any) {
       if (error.response && error.response.status === 403) {
