@@ -19,9 +19,10 @@ router.post("", async (req, res) => {
 
     const user = userResult.rows[0];
     const fullNameUser = user.name + " " + user.surname;
-    const token = jwt.sign({ userId: user.id, email: user.email, user_permission_id: user.user_permission_id, name: user.name, fullName: fullNameUser }, secretKey);
+    const user_artistic_name = user.artistic_name;
+    const token = jwt.sign({ userId: user.id, email: user.email, user_permission_id: user.user_permission_id, name: user.name, fullName: fullNameUser, artisticName: user_artistic_name }, secretKey);
 
-    res.status(200).json({ token, fullNameUser });
+    res.status(200).json({ token, fullNameUser, user_artistic_name });
   } catch (error) {
     console.error("Falha ao fazer login", error.message);
     res.status(400).json({ error: error.message });
