@@ -142,7 +142,7 @@ function FormUserRegisterAccount() {
       });
 
       const response = await axios.post(
-        "http://localhost:3333/register",
+        "http://localhost:3333/api/register",
         formDataObject,
         {
           headers: {
@@ -152,16 +152,16 @@ function FormUserRegisterAccount() {
       );
 
       if (response.status === 200) {
-        // formRef.current?.reset();
+        formRef.current?.reset();
         setfirstLetterUppercaseName("");
         setfirstLetterUppercaseSurname("");
         setPhone("");
         setEmail("");
         notifySuccesCreateUser();
 
-        // setTimeout(() => {
-        //   window.location.href = "/pages/login";
-        // }, 3000);
+        setTimeout(() => {
+          window.location.href = "/pages/login";
+        }, 3000);
       }
     } catch (error: any) {
       if (error.response && error.response.status === 400) {
@@ -170,6 +170,11 @@ function FormUserRegisterAccount() {
           notifyErrorCreateUser(errorMessage);
         }
       } else if (error.response && error.response.status === 404) {
+        if (error.response.data && error.response.data.error) {
+          const errorMessage = error.response.data.error;
+          notifyErrorCreateUser(errorMessage);
+        }
+      } else if (error.response && error.response.status === 409) {
         if (error.response.data && error.response.data.error) {
           const errorMessage = error.response.data.error;
           notifyErrorCreateUser(errorMessage);
@@ -225,7 +230,6 @@ function FormUserRegisterAccount() {
         >
           <div className="">
             <h2 className="font-bold text-4xl text-center pb-3">Registre-se</h2>
-            <button onClick={() => {notifyErrorCreateUser}}>Teste</button>
           </div>
           <div className="grid grid-cols-2 sml639:grid-cols-1 sml639:p-7 sml:grid-cols-1 flex-wrap justify-center">
             <div className="col-span-1">
