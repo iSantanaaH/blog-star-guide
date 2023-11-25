@@ -230,6 +230,7 @@ function FormUserRegisterAccount() {
           className="flex flex-col md:w-3/5 lg:w-2/6 sml:w-5/6 sml:p-4 items-center m-32 py-5 bg-slate-200 rounded-2xl"
         >
           <div className="">
+          <button>teste</button>
             <h2 className="font-bold text-4xl text-center pb-3">Registre-se</h2>
           </div>
           <div className="grid grid-cols-2 sml639:grid-cols-1 sml639:p-7 sml:grid-cols-1 flex-wrap justify-center">
