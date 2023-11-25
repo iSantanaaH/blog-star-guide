@@ -22,8 +22,8 @@ const setupTablePostImagesRelations = require("./src/config/databaseSetup/post_i
 const routerTest = require("./src/router/teste");
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(cors({ origin: "http://45.166.71.133:31025" }));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 (async () => {
   await userPermission();
