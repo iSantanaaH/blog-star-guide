@@ -19,6 +19,7 @@ const postsTableSetup = require("./src/config/databaseSetup/postTable");
 const userPermission = require("./src/config/databaseSetup/userPermissionTable");
 const setupTableImages = require("./src/config/databaseSetup/images");
 const setupTablePostImagesRelations = require("./src/config/databaseSetup/post_images_relation");
+const routerTest = require("./src/router/teste");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
@@ -37,6 +38,7 @@ app.use("/api/login", routerLogin);
 app.use("/api/latestpost", routerLatestPost);
 app.use("/api/createpost", routerCreatePost);
 app.use("/api/posts", routerPostsPage);
+app.use("/api/testrouter", routerTest);
 
 app.listen(PORT, () => {
   console.log(`Servidor iniciado em localhost no dia ${Date()}`);
