@@ -142,7 +142,7 @@ function FormUserRegisterAccount() {
       });
 
       const response = await axios.post(
-        "http://localhost:3333/api/register",
+        "http://localhost:3333/api/api/register",
         formDataObject,
         {
           headers: {

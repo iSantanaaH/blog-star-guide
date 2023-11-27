@@ -8,7 +8,7 @@ function removeSpecialCharacters(value) {
   return value.replace(/\D/g, "");
 }
 
-router.post("", async (req, res) => {
+router.post("/api", async (req, res) => {
   try {
     let { name, surname, email, password, phone, birthday } = req.body;
 
