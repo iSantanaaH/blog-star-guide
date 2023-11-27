@@ -23,7 +23,7 @@ const routerTest = require("./src/router/teste");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: "45.166.71.133:31025",
+  origin: "http://45.166.71.133:31025",
   optionsSuccessStatus: 200,
 }));
 app.use(express.json());
